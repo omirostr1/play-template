@@ -1,26 +1,19 @@
 package controllers
 
-import play.api.mvc.{BaseController, ControllerComponents}
-import javax.inject.{Singleton, Inject}
+import play.api.mvc._
+import repositories.DataRepository
+
+import javax.inject._
+import scala.concurrent.Future
 
 @Singleton
-class ApplicationController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
-  def index() = TODO
-}
-
-class CreateController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+class ApplicationController @Inject()(val controllerComponents: ControllerComponents, val repository: DataRepository)( implicit val ec: ExecutionContext) extends BaseController {
+  def index(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+      Future.successful(Ok(views.html.index()))
+    }
   def create() = TODO
-}
-
-class ReadController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
   def read(id: String) = TODO
-}
-
-class UpdateController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
   def update(id: String) = TODO
-}
-
-class DeleteController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
   def delete(id: String) = TODO
 }
 
