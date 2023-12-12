@@ -32,7 +32,7 @@ package controllers {
 
   
     // @LINE:20
-    def index4(id:String): Call = {
+    def delete(id:String): Call = {
       
       Call("DELETE", _prefix + { _defaultPrefix } + "api/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)))
     }
@@ -47,7 +47,7 @@ package controllers {
 
   
     // @LINE:11
-    def index1: Call = {
+    def create: Call = {
       
       Call("POST", _prefix + { _defaultPrefix } + "api2")
     }
@@ -62,7 +62,7 @@ package controllers {
 
   
     // @LINE:14
-    def index2(id:String): Call = {
+    def read(id:String): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "get/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)))
     }
@@ -107,7 +107,7 @@ package controllers {
 
   
     // @LINE:17
-    def index3(id:String): Call = {
+    def update(id:String): Call = {
       
       Call("PUT", _prefix + { _defaultPrefix } + "put/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)))
     }

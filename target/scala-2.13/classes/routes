@@ -8,13 +8,13 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET     /api     controllers.ApplicationController.index
 
 # App route that references the new controller and method
-POST     /api2     controllers.CreateController.index1
+POST     /api2     controllers.CreateController.create
 
 # App route that references the new controller and method
-GET     /get/:id     controllers.ReadController.index2(id: String)
+GET     /get/:id     controllers.ReadController.read(id: String)
 
 # App route that references the new controller and method
-PUT     /put/:id     controllers.UpdateController.index3(id: String)
+PUT     /put/:id     controllers.UpdateController.update(id: String)
 
 # App route that references the new controller and method
-DELETE     /api/:id      controllers.DeleteController.index4(id: String)
+DELETE     /api/:id      controllers.DeleteController.delete(id: String)

@@ -61,10 +61,10 @@ class Routes(
     ("""GET""", this.prefix, """controllers.HomeController.index()"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api""", """controllers.ApplicationController.index"""),
-    ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api2""", """controllers.CreateController.index1"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """get/""" + "$" + """id<[^/]+>""", """controllers.ReadController.index2(id:String)"""),
-    ("""PUT""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """put/""" + "$" + """id<[^/]+>""", """controllers.UpdateController.index3(id:String)"""),
-    ("""DELETE""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/""" + "$" + """id<[^/]+>""", """controllers.DeleteController.index4(id:String)"""),
+    ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api2""", """controllers.CreateController.create"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """get/""" + "$" + """id<[^/]+>""", """controllers.ReadController.read(id:String)"""),
+    ("""PUT""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """put/""" + "$" + """id<[^/]+>""", """controllers.UpdateController.update(id:String)"""),
+    ("""DELETE""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/""" + "$" + """id<[^/]+>""", """controllers.DeleteController.delete(id:String)"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -127,15 +127,15 @@ class Routes(
   )
 
   // @LINE:11
-  private[this] lazy val controllers_CreateController_index13_route = Route("POST",
+  private[this] lazy val controllers_CreateController_create3_route = Route("POST",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api2")))
   )
-  private[this] lazy val controllers_CreateController_index13_invoker = createInvoker(
-    CreateController_3.index1,
+  private[this] lazy val controllers_CreateController_create3_invoker = createInvoker(
+    CreateController_3.create,
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.CreateController",
-      "index1",
+      "create",
       Nil,
       "POST",
       this.prefix + """api2""",
@@ -145,15 +145,15 @@ class Routes(
   )
 
   // @LINE:14
-  private[this] lazy val controllers_ReadController_index24_route = Route("GET",
+  private[this] lazy val controllers_ReadController_read4_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("get/"), DynamicPart("id", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_ReadController_index24_invoker = createInvoker(
-    ReadController_5.index2(fakeValue[String]),
+  private[this] lazy val controllers_ReadController_read4_invoker = createInvoker(
+    ReadController_5.read(fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.ReadController",
-      "index2",
+      "read",
       Seq(classOf[String]),
       "GET",
       this.prefix + """get/""" + "$" + """id<[^/]+>""",
@@ -163,15 +163,15 @@ class Routes(
   )
 
   // @LINE:17
-  private[this] lazy val controllers_UpdateController_index35_route = Route("PUT",
+  private[this] lazy val controllers_UpdateController_update5_route = Route("PUT",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("put/"), DynamicPart("id", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_UpdateController_index35_invoker = createInvoker(
-    UpdateController_1.index3(fakeValue[String]),
+  private[this] lazy val controllers_UpdateController_update5_invoker = createInvoker(
+    UpdateController_1.update(fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.UpdateController",
-      "index3",
+      "update",
       Seq(classOf[String]),
       "PUT",
       this.prefix + """put/""" + "$" + """id<[^/]+>""",
@@ -181,15 +181,15 @@ class Routes(
   )
 
   // @LINE:20
-  private[this] lazy val controllers_DeleteController_index46_route = Route("DELETE",
+  private[this] lazy val controllers_DeleteController_delete6_route = Route("DELETE",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/"), DynamicPart("id", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_DeleteController_index46_invoker = createInvoker(
-    DeleteController_0.index4(fakeValue[String]),
+  private[this] lazy val controllers_DeleteController_delete6_invoker = createInvoker(
+    DeleteController_0.delete(fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.DeleteController",
-      "index4",
+      "delete",
       Seq(classOf[String]),
       "DELETE",
       this.prefix + """api/""" + "$" + """id<[^/]+>""",
@@ -220,27 +220,27 @@ class Routes(
       }
   
     // @LINE:11
-    case controllers_CreateController_index13_route(params@_) =>
+    case controllers_CreateController_create3_route(params@_) =>
       call { 
-        controllers_CreateController_index13_invoker.call(CreateController_3.index1)
+        controllers_CreateController_create3_invoker.call(CreateController_3.create)
       }
   
     // @LINE:14
-    case controllers_ReadController_index24_route(params@_) =>
+    case controllers_ReadController_read4_route(params@_) =>
       call(params.fromPath[String]("id", None)) { (id) =>
-        controllers_ReadController_index24_invoker.call(ReadController_5.index2(id))
+        controllers_ReadController_read4_invoker.call(ReadController_5.read(id))
       }
   
     // @LINE:17
-    case controllers_UpdateController_index35_route(params@_) =>
+    case controllers_UpdateController_update5_route(params@_) =>
       call(params.fromPath[String]("id", None)) { (id) =>
-        controllers_UpdateController_index35_invoker.call(UpdateController_1.index3(id))
+        controllers_UpdateController_update5_invoker.call(UpdateController_1.update(id))
       }
   
     // @LINE:20
-    case controllers_DeleteController_index46_route(params@_) =>
+    case controllers_DeleteController_delete6_route(params@_) =>
       call(params.fromPath[String]("id", None)) { (id) =>
-        controllers_DeleteController_index46_invoker.call(DeleteController_0.index4(id))
+        controllers_DeleteController_delete6_invoker.call(DeleteController_0.delete(id))
       }
   }
 }

@@ -38,8 +38,8 @@ package controllers.javascript {
 
   
     // @LINE:20
-    def index4: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.DeleteController.index4",
+    def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.DeleteController.delete",
       """
         function(id0) {
           return _wA({method:"DELETE", url:"""" + _prefix + { _defaultPrefix } + """" + "api/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
@@ -58,8 +58,8 @@ package controllers.javascript {
 
   
     // @LINE:11
-    def index1: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.CreateController.index1",
+    def create: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.CreateController.create",
       """
         function() {
           return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "api2"})
@@ -78,8 +78,8 @@ package controllers.javascript {
 
   
     // @LINE:14
-    def index2: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.ReadController.index2",
+    def read: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ReadController.read",
       """
         function(id0) {
           return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "get/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
@@ -138,8 +138,8 @@ package controllers.javascript {
 
   
     // @LINE:17
-    def index3: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.UpdateController.index3",
+    def update: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.UpdateController.update",
       """
         function(id0) {
           return _wA({method:"PUT", url:"""" + _prefix + { _defaultPrefix } + """" + "put/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
