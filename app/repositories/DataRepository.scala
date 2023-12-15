@@ -25,7 +25,7 @@ class DataRepository @Inject()(
 ) {
 
   def index(): Future[Either[Int, Seq[DataModel]]]  =
-    collection.find().toFuture().map{
+    collection.find().toFuture().map{ // this returns all items in the data repository, as no filters as parameters are passed.
       case books: Seq[DataModel] => Right(books)
       case _ => Left(404)
     }

@@ -9,57 +9,79 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 class ApplicationControllerSpec extends BaseSpecWithApplication{
 
   val TestApplicationController = new ApplicationController(
+    repository,
     component
   )
 
-  "ApplicationController .index()" should {
+  private val dataModel: DataModel = DataModel(
+    "abcd",
+    "test name",
+    "test description",
+    100
+  )
 
+  "ApplicationController .index()" should {
+    beforeEach()
     val result = TestApplicationController.index()(FakeRequest())
 
     "return TODO" in {
       status(result) shouldBe Status.OK
     }
-
+    afterEach()
   }
 
-  "ApplicationController .create()" should {
+  "ApplicationController .create" should {
 
-    val result = TestApplicationController.create()(FakeRequest())
+    "create a book in the database" in {
+      beforeEach()
+      val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](Json.toJson(dataModel))
+      val createdResult: Future[Result] = TestApplicationController.create()(request)
 
-    "return TODO" in {
-      status(result) shouldBe Status.NOT_IMPLEMENTED
+      status(createdResult) shouldBe Status.???
+      afterEach()
     }
-
   }
 
-  "ApplicationController .read()" should {
+  "ApplicationController .read" should {
 
-    val result = TestApplicationController.read("")(FakeRequest())
+    "find a book in the database by id" in {
+      beforeEach()
+      val request: FakeRequest[JsValue] = buildGet("/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val createdResult: Future[Result] = TestApplicationController.create()(request)
 
-    "return TODO" in {
-      status(result) shouldBe Status.NOT_IMPLEMENTED
+      //Hint: You could use status(createdResult) shouldBe Status.CREATED to check this has worked again
+
+      val readResult: Future[Result] = TestApplicationController.read("abcd")(FakeRequest())
+
+      status(readResult) shouldBe ???
+      contentAsJson(readResult).as[???] shouldBe ???
+      afterEach()
     }
-
   }
 
   "ApplicationController .update()" should {
-
+    beforeEach()
     val result = TestApplicationController.update("")(FakeRequest())
 
     "return TODO" in {
       status(result) shouldBe Status.NOT_IMPLEMENTED
+      afterEach()
     }
-
   }
 
   "ApplicationController .delete()" should {
-
+    beforeEach()
     val result = TestApplicationController.delete("")(FakeRequest())
 
     "return TODO" in {
       status(result) shouldBe Status.NOT_IMPLEMENTED
+      afterEach()
     }
-
   }
 
+  override def beforeEach(): Unit = repository.deleteAll()
+
+  override def afterEach(): Unit = repository.deleteAll()
+
 }
+
