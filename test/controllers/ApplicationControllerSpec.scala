@@ -5,6 +5,7 @@ import play.api.test.FakeRequest
 import play.api.http.Status
 import play.api.test.Helpers._
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.mvc.Result
 
 class ApplicationControllerSpec extends BaseSpecWithApplication{
 
@@ -21,13 +22,13 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
   )
 
   "ApplicationController .index()" should {
-    beforeEach()
     val result = TestApplicationController.index()(FakeRequest())
 
     "return TODO" in {
+      beforeEach()
       status(result) shouldBe Status.OK
+      afterEach()
     }
-    afterEach()
   }
 
   "ApplicationController .create" should {
@@ -53,27 +54,27 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
 
       val readResult: Future[Result] = TestApplicationController.read("abcd")(FakeRequest())
 
-      status(readResult) shouldBe ???
-      contentAsJson(readResult).as[???] shouldBe ???
+      status(readResult) shouldBe Status.OK
+      contentAsJson(readResult).as[???] shouldBe Result
       afterEach()
     }
   }
 
   "ApplicationController .update()" should {
-    beforeEach()
     val result = TestApplicationController.update("")(FakeRequest())
 
     "return TODO" in {
+      beforeEach()
       status(result) shouldBe Status.NOT_IMPLEMENTED
       afterEach()
     }
   }
 
   "ApplicationController .delete()" should {
-    beforeEach()
     val result = TestApplicationController.delete("")(FakeRequest())
 
     "return TODO" in {
+      beforeEach()
       status(result) shouldBe Status.NOT_IMPLEMENTED
       afterEach()
     }
