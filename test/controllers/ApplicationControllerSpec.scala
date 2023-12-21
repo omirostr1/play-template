@@ -1,17 +1,20 @@
 package controllers
 
 import baseSpec.BaseSpecWithApplication
+import models.DataModel
 import play.api.test.FakeRequest
 import play.api.http.Status
 import play.api.test.Helpers._
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.mvc.Result
+import play.api.mvc.{Result, ControllerComponents}
+import play.api.libs.json._
+import scala.concurrent.Future
 
 class ApplicationControllerSpec extends BaseSpecWithApplication{
 
   val TestApplicationController = new ApplicationController(
-    repository,
-    component
+    component,
+    repository
   )
 
   private val dataModel: DataModel = DataModel(
@@ -21,11 +24,18 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     100
   )
 
+  private val dataModel1: DataModel = DataModel(
+    "abcd",
+    "test name1",
+    "test description",
+    100
+  )
+
   "ApplicationController .index()" should {
-    val result = TestApplicationController.index()(FakeRequest())
 
     "return TODO" in {
       beforeEach()
+      val result = TestApplicationController.index()(FakeRequest())
       status(result) shouldBe Status.OK
       afterEach()
     }
@@ -38,50 +48,65 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
       val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
 
-      status(createdResult) shouldBe Status.???
+      status(createdResult) shouldBe Status.CREATED
       afterEach()
     }
   }
 
-  "ApplicationController .read" should {
+  "ApplicationController .read()" should {
 
     "find a book in the database by id" in {
       beforeEach()
-      val request: FakeRequest[JsValue] = buildGet("/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
-      val createdResult: Future[Result] = TestApplicationController.create()(request)
-
+      val request: FakeRequest[JsValue] = buildPost("/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      //val createdResult: Future[Result] = TestApplicationController.create()(request)
+      val createdResult: Future[Result] = await(TestApplicationController.create()(request))
+      status(createdResult) shouldBe Status.CREATED
       //Hint: You could use status(createdResult) shouldBe Status.CREATED to check this has worked again
 
       val readResult: Future[Result] = TestApplicationController.read("abcd")(FakeRequest())
 
       status(readResult) shouldBe Status.OK
-      contentAsJson(readResult).as[???] shouldBe Result
+      contentAsJson(readResult).as[JsValue] shouldBe Json.toJson(dataModel)
       afterEach()
     }
   }
 
   "ApplicationController .update()" should {
-    val result = TestApplicationController.update("")(FakeRequest())
 
     "return TODO" in {
       beforeEach()
-      status(result) shouldBe Status.NOT_IMPLEMENTED
+
+      val request: FakeRequest[JsValue] = buildGet("/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val createdResult: Future[Result] = TestApplicationController.create()(request)
+      status(createdResult) shouldBe Status.CREATED
+
+      val updateRequest: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel1))
+      val result = TestApplicationController.update(id = "abcd")(FakeRequest())
+
+      status(result) shouldBe Status.ACCEPTED
+
       afterEach()
     }
   }
 
   "ApplicationController .delete()" should {
-    val result = TestApplicationController.delete("")(FakeRequest())
 
     "return TODO" in {
       beforeEach()
-      status(result) shouldBe Status.NOT_IMPLEMENTED
+
+      val request: FakeRequest[JsValue] = buildPost("/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val createdResult: Future[Result] = TestApplicationController.create()(request)
+      status(createdResult) shouldBe Status.CREATED
+
+      val result = TestApplicationController.delete("abcd")(FakeRequest())
+
+      status(result) shouldBe Status.ACCEPTED
+
       afterEach()
     }
   }
 
   override def beforeEach(): Unit = repository.deleteAll()
-
   override def afterEach(): Unit = repository.deleteAll()
 
 }
