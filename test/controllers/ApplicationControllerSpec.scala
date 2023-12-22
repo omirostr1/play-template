@@ -57,15 +57,15 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
 
     "find a book in the database by id" in {
       beforeEach()
-      val request: FakeRequest[JsValue] = buildPost("/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
       //val createdResult: Future[Result] = TestApplicationController.create()(request)
-      val createdResult: Future[Result] = await(TestApplicationController.create()(request))
-      status(createdResult) shouldBe Status.CREATED
+      val createdResult: Result = await(TestApplicationController.create()(request))
+      assert(createdResult.header.status == Status.CREATED)
       //Hint: You could use status(createdResult) shouldBe Status.CREATED to check this has worked again
 
       val readResult: Future[Result] = TestApplicationController.read("abcd")(FakeRequest())
 
-      status(readResult) shouldBe Status.OK
+      assert(status(readResult) == Status.OK)
       contentAsJson(readResult).as[JsValue] shouldBe Json.toJson(dataModel)
       afterEach()
     }
