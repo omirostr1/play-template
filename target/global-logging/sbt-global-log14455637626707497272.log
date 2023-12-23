@@ -1,0 +1,18 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(testOnly *ApplicationControllerSpec, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Test / testOnly[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-template[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets-test:play-template[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/test-classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/test/controllers/ApplicationControllerSpec.scala:19:31: overloaded method must with alternatives:[0m
+[0m[[0m[31merror[0m] [0m[0m  (resultOfAfterWordApplication: org.scalatest.verbs.ResultOfAfterWordApplication)(implicit swawr: org.scalatest.verbs.SubjectWithAfterWordRegistration): Unit <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (right: => Unit)(implicit fun: org.scalatest.verbs.StringVerbBlockRegistration): Unit <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (right: org.scalatest.verbs.BehaveWord)(implicit svbli: org.scalatest.verbs.StringVerbBehaveLikeInvocation): org.scalatest.verbs.BehaveWord <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (right: String)(implicit svsi: org.scalatest.verbs.StringVerbStringInvocation): org.scalatest.verbs.ResultOfStringPassedToVerb[0m
+[0m[[0m[31merror[0m] [0m[0m cannot be applied to (org.scalatest.matchers.Matcher[String])[0m
+[0m[[0m[31merror[0m] [0m[0m      contentAsString(result) must include ("TODO")[0m
+[0m[[0m[31merror[0m] [0m[0m                              ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m(Test / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 0 s, completed 12 Dec 2023, 12:44:13[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

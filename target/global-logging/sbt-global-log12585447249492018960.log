@@ -1,0 +1,80 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(run, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / run[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 3 Scala sources to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:32:12: constructor cannot be instantiated to expected type;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Right[A,B][0m
+[0m[[0m[31merror[0m] [0m[0m required: models.DataModel[0m
+[0m[[0m[31merror[0m] [0m[0m      case Right(Some(DataModel)) => Ok {[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:33:21: not found: value item[0m
+[0m[[0m[31merror[0m] [0m[0m        Json.toJson(item)[0m
+[0m[[0m[31merror[0m] [0m[0m                    ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:35:12: constructor cannot be instantiated to expected type;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Right[A,B][0m
+[0m[[0m[31merror[0m] [0m[0m required: models.DataModel[0m
+[0m[[0m[31merror[0m] [0m[0m      case Right(None) => NotFound(Json.toJson("Unable to find any books"))[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/repositories/DataRepository.scala:45:31: Auto-application to `()` is deprecated. Supply the empty argument list `()` explicitly to invoke method headOption,[0m
+[0m[[0m[33mwarn[0m] [0m[0mor remove the empty argument list from its definition (Java-defined methods are exempt).[0m
+[0m[[0m[33mwarn[0m] [0m[0mIn Scala 3, an unapplied method like this will be eta-expanded into a function.[0m
+[0m[[0m[33mwarn[0m] [0m[0m    collection.find(byID(id)).headOption flatMap { // byID is a query used to filter the collection.[0m
+[0m[[0m[33mwarn[0m] [0m[0m                              ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[0m[[0m[31merror[0m] [0m[0mthree errors found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 3 Scala sources to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:32:12: constructor cannot be instantiated to expected type;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Right[A,B][0m
+[0m[[0m[31merror[0m] [0m[0m required: models.DataModel[0m
+[0m[[0m[31merror[0m] [0m[0m      case Right(Some(DataModel)) => Ok {[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:33:21: not found: value item[0m
+[0m[[0m[31merror[0m] [0m[0m        Json.toJson(item)[0m
+[0m[[0m[31merror[0m] [0m[0m                    ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:35:12: constructor cannot be instantiated to expected type;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Right[A,B][0m
+[0m[[0m[31merror[0m] [0m[0m required: models.DataModel[0m
+[0m[[0m[31merror[0m] [0m[0m      case Right(None) => NotFound(Json.toJson("Unable to find any books"))[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/repositories/DataRepository.scala:45:31: Auto-application to `()` is deprecated. Supply the empty argument list `()` explicitly to invoke method headOption,[0m
+[0m[[0m[33mwarn[0m] [0m[0mor remove the empty argument list from its definition (Java-defined methods are exempt).[0m
+[0m[[0m[33mwarn[0m] [0m[0mIn Scala 3, an unapplied method like this will be eta-expanded into a function.[0m
+[0m[[0m[33mwarn[0m] [0m[0m    collection.find(byID(id)).headOption flatMap { // byID is a query used to filter the collection.[0m
+[0m[[0m[33mwarn[0m] [0m[0m                              ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[0m[[0m[31merror[0m] [0m[0mthree errors found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 3 Scala sources to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:32:12: constructor cannot be instantiated to expected type;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Right[A,B][0m
+[0m[[0m[31merror[0m] [0m[0m required: models.DataModel[0m
+[0m[[0m[31merror[0m] [0m[0m      case Right(Some(item: DataModel)) => Ok {[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:35:12: constructor cannot be instantiated to expected type;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Right[A,B][0m
+[0m[[0m[31merror[0m] [0m[0m required: models.DataModel[0m
+[0m[[0m[31merror[0m] [0m[0m      case Right(None) => NotFound(Json.toJson("Unable to find any books"))[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/repositories/DataRepository.scala:45:31: Auto-application to `()` is deprecated. Supply the empty argument list `()` explicitly to invoke method headOption,[0m
+[0m[[0m[33mwarn[0m] [0m[0mor remove the empty argument list from its definition (Java-defined methods are exempt).[0m
+[0m[[0m[33mwarn[0m] [0m[0mIn Scala 3, an unapplied method like this will be eta-expanded into a function.[0m
+[0m[[0m[33mwarn[0m] [0m[0m    collection.find(byID(id)).headOption flatMap { // byID is a query used to filter the collection.[0m
+[0m[[0m[33mwarn[0m] [0m[0m                              ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[31merror[0m] [0m[0mCancelled: run[0m
+[0m[[0m[31merror[0m] [0m[0mCancelled: run[0m
+[0m[[0m[31merror[0m] [0m[0mUse 'last' for the full log.[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

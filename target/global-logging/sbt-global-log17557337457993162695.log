@@ -1,0 +1,14 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(testOnly ApplicationControllerSpec, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Test / testOnly[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-template[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets-test:play-template[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 3 Scala sources to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/test-classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/test/controllers/ApplicationControllerSpec.scala:61:67: No Json serializer found for type play.api.mvc.Action[play.api.mvc.AnyContent]. Try to implement an implicit Writes or Format for this type.[0m
+[0m[[0m[31merror[0m] [0m[0m      contentAsJson(readResult).as[DataModel] shouldBe Json.toJson(TestApplicationController.read("abcd"))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                  ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[0mdebug[0m] [0m[0mForcing garbage collection...[0m
+[0m[[0m[31merror[0m] [0m[0m(Test / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 1 s, completed 21 Dec 2023, 13:30:24[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

@@ -1,0 +1,212 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(run, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / run[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 3 Scala sources to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/repositories/DataRepository.scala:45:31: Auto-application to `()` is deprecated. Supply the empty argument list `()` explicitly to invoke method headOption,[0m
+[0m[[0m[33mwarn[0m] [0m[0mor remove the empty argument list from its definition (Java-defined methods are exempt).[0m
+[0m[[0m[33mwarn[0m] [0m[0mIn Scala 3, an unapplied method like this will be eta-expanded into a function.[0m
+[0m[[0m[33mwarn[0m] [0m[0m    collection.find(byID(id)).headOption flatMap { // byID is a query used to filter the collection.[0m
+[0m[[0m[33mwarn[0m] [0m[0m                              ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/repositories/DataRepository.scala:45:50: match may not be exhaustive.[0m
+[0m[[0m[33mwarn[0m] [0m[0mIt would fail on the following input: None[0m
+[0m[[0m[33mwarn[0m] [0m[0m    collection.find(byID(id)).headOption flatMap { // byID is a query used to filter the collection.[0m
+[0m[[0m[33mwarn[0m] [0m[0m                                                 ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mtwo warnings found[0m
+[0m[[0m[0minfo[0m] [0m[0mdone compiling[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/conf/routes:8:1: Auto-application to `()` is deprecated. Supply the empty argument list `()` explicitly to invoke method index,[0m
+[0m[[0m[33mwarn[0m] [0m[0mor remove the empty argument list from its definition (Java-defined methods are exempt).[0m
+[0m[[0m[33mwarn[0m] [0m[0mIn Scala 3, an unapplied method like this will be eta-expanded into a function.[0m
+[0m[[0m[33mwarn[0m] [0m[0mGET     /api     controllers.ApplicationController.index[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/conf/routes:8:1: Auto-application to `()` is deprecated. Supply the empty argument list `()` explicitly to invoke method index,[0m
+[0m[[0m[33mwarn[0m] [0m[0mor remove the empty argument list from its definition (Java-defined methods are exempt).[0m
+[0m[[0m[33mwarn[0m] [0m[0mIn Scala 3, an unapplied method like this will be eta-expanded into a function.[0m
+[0m[[0m[33mwarn[0m] [0m[0mGET     /api     controllers.ApplicationController.index[0m
+[0m[[0m[33mwarn[0m] [0m[0mtwo warnings found[0m
+[0m[[0m[0minfo[0m] [0m[0mdone compiling[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-template[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:34:49: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : play.api.mvc.Result[0m
+[0m[[0m[31merror[0m] [0m[0m required: scala.concurrent.Future[play.api.mvc.Result][0m
+[0m[[0m[31merror[0m] [0m[0m      case _: NoSuchElementException => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-template[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:33:15: fruitless type test: a value of type models.DataModel cannot also be a java.util.NoSuchElementException (the underlying of NoSuchElementException)[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case _: NoSuchElementException => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[33mwarn[0m] [0m[0m              ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:32:12: patterns after a variable pattern cannot match (SLS 8.1.1)[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case data => Ok(Json.toJson(data))[0m
+[0m[[0m[33mwarn[0m] [0m[0m           ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:33:49: unreachable code due to variable pattern 'data' on line 32[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case _: NoSuchElementException => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[33mwarn[0m] [0m[0m                                                ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mthree warnings found[0m
+[0m[[0m[0minfo[0m] [0m[0mdone compiling[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-template[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:33:16: Pattern variables must start with a lower-case letter. (SLS 8.1.1.)[0m
+[0m[[0m[31merror[0m] [0m[0m      case None: NoSuchElementException => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:33:18: not found: type None[0m
+[0m[[0m[31merror[0m] [0m[0m      case none: None => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:34:18: fruitless type test: a value of type models.DataModel cannot also be a com.fasterxml.jackson.annotation.JsonTypeInfo.None[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case none: None => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[33mwarn[0m] [0m[0m                 ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:33:12: patterns after a variable pattern cannot match (SLS 8.1.1)[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case data => Ok(Json.toJson(data))[0m
+[0m[[0m[33mwarn[0m] [0m[0m           ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:34:34: unreachable code due to variable pattern 'data' on line 33[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case none: None => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[33mwarn[0m] [0m[0m                                 ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mthree warnings found[0m
+[0m[[0m[0minfo[0m] [0m[0mdone compiling[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-template[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:35:18: fruitless type test: a value of type models.DataModel cannot also be a com.fasterxml.jackson.annotation.ObjectIdGenerators.None[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case none: None => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[33mwarn[0m] [0m[0m                 ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:34:12: patterns after a variable pattern cannot match (SLS 8.1.1)[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case data => Ok(Json.toJson(data))[0m
+[0m[[0m[33mwarn[0m] [0m[0m           ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:35:34: unreachable code due to variable pattern 'data' on line 34[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case none: None => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[33mwarn[0m] [0m[0m                                 ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mthree warnings found[0m
+[0m[[0m[0minfo[0m] [0m[0mdone compiling[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-template[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:35:15: fruitless type test: a value of type models.DataModel cannot also be a com.fasterxml.jackson.annotation.ObjectIdGenerators.None[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case _: None => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[33mwarn[0m] [0m[0m              ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:34:12: patterns after a variable pattern cannot match (SLS 8.1.1)[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case data => Ok(Json.toJson(data))[0m
+[0m[[0m[33mwarn[0m] [0m[0m           ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:35:31: unreachable code due to variable pattern 'data' on line 34[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case _: None => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[33mwarn[0m] [0m[0m                              ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mthree warnings found[0m
+[0m[[0m[0minfo[0m] [0m[0mdone compiling[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-template[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:35:15: fruitless type test: a value of type models.DataModel cannot also be a java.util.NoSuchElementException (the underlying of NoSuchElementException)[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case _: NoSuchElementException => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[33mwarn[0m] [0m[0m              ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:34:12: patterns after a variable pattern cannot match (SLS 8.1.1)[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case data => Ok(Json.toJson(data))[0m
+[0m[[0m[33mwarn[0m] [0m[0m           ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:35:49: unreachable code due to variable pattern 'data' on line 34[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case _: NoSuchElementException => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[33mwarn[0m] [0m[0m                                                ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mthree warnings found[0m
+[0m[[0m[0minfo[0m] [0m[0mdone compiling[0m
+[0m[[0m[0mdebug[0m] [0m[0mForcing garbage collection...[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-template[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:34:15: fruitless type test: a value of type models.DataModel cannot also be a java.util.NoSuchElementException (the underlying of NoSuchElementException)[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case _: NoSuchElementException => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[33mwarn[0m] [0m[0m              ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:33:12: patterns after a variable pattern cannot match (SLS 8.1.1)[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case data => Ok(Json.toJson(data))[0m
+[0m[[0m[33mwarn[0m] [0m[0m           ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:34:49: unreachable code due to variable pattern 'data' on line 33[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case _: NoSuchElementException => NotFound(Json.toJson("No data found"))[0m
+[0m[[0m[33mwarn[0m] [0m[0m                                                ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mthree warnings found[0m
+[0m[[0m[0minfo[0m] [0m[0mdone compiling[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-template[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[0minfo[0m] [0m[0mdone compiling[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-template[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:32:34: ')' expected but '=>' found.[0m
+[0m[[0m[31merror[0m] [0m[0m      case Right(item: DataModel => Ok(Json.toJson(data))[0m
+[0m[[0m[31merror[0m] [0m[0m                                 ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:32:12: constructor cannot be instantiated to expected type;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Right[A,B][0m
+[0m[[0m[31merror[0m] [0m[0m required: models.DataModel[0m
+[0m[[0m[31merror[0m] [0m[0m      case Right(item: DataModel) => Ok(Json.toJson(item))[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:33:12: constructor cannot be instantiated to expected type;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Left[A,B][0m
+[0m[[0m[31merror[0m] [0m[0m required: models.DataModel[0m
+[0m[[0m[31merror[0m] [0m[0m      case Left(error) => Status(error)(Json.toJson("Unable to read the book"))[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/omiros.trypatsas/IdeaProjects/play-template/target/scala-2.13/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:32:12: constructor cannot be instantiated to expected type;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Right[A,B][0m
+[0m[[0m[31merror[0m] [0m[0m required: models.DataModel[0m
+[0m[[0m[31merror[0m] [0m[0m      case Right(item: DataModel) => Ok(Json.toJson(item))[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:33:12: constructor cannot be instantiated to expected type;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Left[A,B][0m
+[0m[[0m[31merror[0m] [0m[0m required: models.DataModel[0m
+[0m[[0m[31merror[0m] [0m[0m      case Left(error) => BadRequest(Json.toJson(error))[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[31merror[0m] [0m[0mCancelled: run[0m
+[0m[[0m[31merror[0m] [0m[0mCancelled: run[0m
+[0m[[0m[31merror[0m] [0m[0mUse 'last' for the full log.[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m
