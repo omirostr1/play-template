@@ -24,13 +24,6 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     100
   )
 
-  private val dataModel1: DataModel = DataModel(
-    "abcd",
-    "test name1",
-    "test description",
-    100
-  )
-
   "ApplicationController .index()" should {
 
     "return TODO" in {
@@ -58,9 +51,8 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     "find a book in the database by id" in {
       beforeEach()
       val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
-      //val createdResult: Future[Result] = TestApplicationController.create()(request)
-      val createdResult: Result = await(TestApplicationController.create()(request))
-      assert(createdResult.header.status == Status.CREATED)
+      val createdResult: Future[Result] = TestApplicationController.create()(request)
+      status(createdResult) shouldBe Status.CREATED
       //Hint: You could use status(createdResult) shouldBe Status.CREATED to check this has worked again
 
       val readResult: Future[Result] = TestApplicationController.read("abcd")(FakeRequest())
@@ -76,14 +68,14 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     "return TODO" in {
       beforeEach()
 
-      val request: FakeRequest[JsValue] = buildGet("/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
       status(createdResult) shouldBe Status.CREATED
 
-      val updateRequest: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel1))
-      val result = TestApplicationController.update(id = "abcd")(FakeRequest())
+      val updateRequest: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val result = TestApplicationController.update(id = "abcd")(updateRequest)
 
-      status(result) shouldBe Status.ACCEPTED
+      assert(status(result) == Status.ACCEPTED)
 
       afterEach()
     }
