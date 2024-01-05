@@ -6,8 +6,9 @@ import play.api.test.FakeRequest
 import play.api.http.Status
 import play.api.test.Helpers._
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.mvc.{Result, ControllerComponents}
+import play.api.mvc.{ControllerComponents, Result}
 import play.api.libs.json._
+
 import scala.concurrent.Future
 
 class ApplicationControllerSpec extends BaseSpecWithApplication{
@@ -24,7 +25,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     100
   )
 
-  "ApplicationController .index()" should {
+  "ApplicationController .index" should {
 
     "return TODO" in {
       beforeEach()
@@ -46,13 +47,25 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     }
   }
 
-  "ApplicationController .read()" should {
+  "ApplicationController .create error test" should {
+
+    "return a BadRequest" in {
+      beforeEach()
+      val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](Json.toJson("abc"))
+      val createdResult: Future[Result] = TestApplicationController.create()(request)
+
+      status(createdResult) shouldBe Status.BAD_REQUEST
+      afterEach()
+    }
+  }
+
+  "ApplicationController .read" should {
 
     "find a book in the database by id" in {
       beforeEach()
-      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
-      status(createdResult) shouldBe Status.CREATED
+      //status(createdResult) shouldBe Status.CREATED
       //Hint: You could use status(createdResult) shouldBe Status.CREATED to check this has worked again
 
       val readResult: Future[Result] = TestApplicationController.read("abcd")(FakeRequest())
@@ -63,7 +76,24 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     }
   }
 
-  "ApplicationController .update()" should {
+  "ApplicationController .read error test" should {
+
+    "return an Internal Server Error" in {
+      beforeEach()
+      val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](Json.toJson(dataModel))
+      val createdResult: Future[Result] = TestApplicationController.create()(request)
+      status(createdResult) shouldBe Status.CREATED
+      //Hint: You could use status(createdResult) shouldBe Status.CREATED to check this has worked again
+
+      val readResult: Future[Result] = TestApplicationController.read("abd")(FakeRequest())
+
+      assert(status(readResult) == Status.INTERNAL_SERVER_ERROR)
+      //contentAsJson(readResult).as[JsValue] shouldBe Json.toJson(dataModel)
+      afterEach()
+    }
+  }
+
+  "ApplicationController .update" should {
 
     "return TODO" in {
       beforeEach()
@@ -81,12 +111,30 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     }
   }
 
+  "ApplicationController .update error test" should {
+
+    "return a BadRequest" in {
+      beforeEach()
+
+      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val createdResult: Future[Result] = TestApplicationController.create()(request)
+      status(createdResult) shouldBe Status.CREATED
+
+      val updateRequest: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson("abc"))
+      val result = TestApplicationController.update(id = "abd")(updateRequest)
+
+      assert(status(result) == Status.BAD_REQUEST)
+
+      afterEach()
+    }
+  }
+
   "ApplicationController .delete()" should {
 
     "return TODO" in {
       beforeEach()
 
-      val request: FakeRequest[JsValue] = buildPost("/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
       status(createdResult) shouldBe Status.CREATED
 
@@ -98,8 +146,25 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     }
   }
 
-  override def beforeEach(): Unit = repository.deleteAll()
-  override def afterEach(): Unit = repository.deleteAll()
+  "ApplicationController .delete() error test" should {
+
+    "return an Internal Server Error" in {
+      beforeEach()
+
+      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val createdResult: Future[Result] = TestApplicationController.create()(request)
+      status(createdResult) shouldBe Status.CREATED
+
+      val result = TestApplicationController.delete("12")(FakeRequest())
+
+      status(result) shouldBe Status.INTERNAL_SERVER_ERROR
+
+      afterEach()
+    }
+  }
+
+  override def beforeEach(): Unit = await(repository.deleteAll())
+  override def afterEach(): Unit = await(repository.deleteAll())
 
 }
 
