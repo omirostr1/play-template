@@ -54,10 +54,13 @@ class DataRepository @Inject()(
       options = new ReplaceOptions().upsert(true) //What happens when we set this to false? When true, replaceOne() either inserts the document from the replacement parameter if no document matches the filter, or replaces the document that matches the filter with the replacement document.
     ).toFuture()
 
-  def delete(id: String): Future[result.DeleteResult] =
-    collection.deleteOne(
-      filter = byID(id) // specifies deletion criteria using query operators, in this case byID.
-    ).toFuture()
+  def delete(id: String): Future[result.DeleteResult] = {
+    collection.find(byID(id)).headOption flatMap {
+      case Some(data) => collection.deleteOne(
+        filter = byID(id) // specifies deletion criteria using query operators, in this case byID.
+      ).toFuture()
+    }
+  }
 
   def deleteAll(): Future[Unit] = collection.deleteMany(empty()).toFuture().map(_ => ()) //Hint: needed for tests
   // can delete multiple documents or even all documents of a collection.
