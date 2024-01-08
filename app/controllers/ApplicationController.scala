@@ -64,11 +64,12 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
 
   def getGoogleBook(search: String, term: String): Action[AnyContent] = Action.async { implicit request =>
     service.getGoogleBook(search = search, term = term).map {
-      case Right(book: Book) => Ok { // 200 response.
-        Json.toJson(book)
-      }
-      case Left(error) => Status(INTERNAL_SERVER_ERROR)
+//      case Right(book: Book) => Ok { // 200 response.
+//        Json.toJson(book)
+//      }
+//      case Left(error) => Future[BadRequest]
+      ???
+    }
     }
   }
-}
 
