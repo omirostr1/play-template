@@ -1,2 +1,30 @@
 [0m[[0m[0mdebug[0m] [0m[0mAcquiring lock on file /Users/omiros.trypatsas/IdeaProjects/play-template/project/target/.sbt-compilation-infos/root-compile/.sbt-idea-lock ...[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:67:12: constructor cannot be instantiated to expected type;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Right[A,B][0m
+[0m[[0m[31merror[0m] [0m[0m required: models.DataModel[0m
+[0m[[0m[31merror[0m] [0m[0m      case Right(book: Book) => Ok { // 200 response.[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:70:12: constructor cannot be instantiated to expected type;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Left[A,B][0m
+[0m[[0m[31merror[0m] [0m[0m required: models.DataModel[0m
+[0m[[0m[31merror[0m] [0m[0m      case Left(error) => Future[BadRequest][0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:70:34: not found: type BadRequest[0m
+[0m[[0m[31merror[0m] [0m[0m      case Left(error) => Future[BadRequest][0m
+[0m[[0m[31merror[0m] [0m[0m                                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/controllers/ApplicationController.scala:70:33: missing argument list for method apply in object Future[0m
+[0m[[0m[31merror[0m] [0m[0mUnapplied methods are only converted to functions when a function type is expected.[0m
+[0m[[0m[31merror[0m] [0m[0mYou can make this conversion explicit by writing `apply _` or `apply(_)(_)` instead of `apply`.[0m
+[0m[[0m[31merror[0m] [0m[0m      case Left(error) => Future[BadRequest][0m
+[0m[[0m[31merror[0m] [0m[0m                                ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/conf/routes:8:1: Auto-application to `()` is deprecated. Supply the empty argument list `()` explicitly to invoke method index,[0m
+[0m[[0m[33mwarn[0m] [0m[0mor remove the empty argument list from its definition (Java-defined methods are exempt).[0m
+[0m[[0m[33mwarn[0m] [0m[0mIn Scala 3, an unapplied method like this will be eta-expanded into a function.[0m
+[0m[[0m[33mwarn[0m] [0m[0mGET     /api     controllers.ApplicationController.index[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/conf/routes:8:1: Auto-application to `()` is deprecated. Supply the empty argument list `()` explicitly to invoke method index,[0m
+[0m[[0m[33mwarn[0m] [0m[0mor remove the empty argument list from its definition (Java-defined methods are exempt).[0m
+[0m[[0m[33mwarn[0m] [0m[0mIn Scala 3, an unapplied method like this will be eta-expanded into a function.[0m
+[0m[[0m[33mwarn[0m] [0m[0mGET     /api     controllers.ApplicationController.index[0m
+[0m[[0m[33mwarn[0m] [0m[0mtwo warnings found[0m
+[0m[[0m[31merror[0m] [0m[0mfour errors found[0m
 [0m[[0m[0mdebug[0m] [0m[0mReleasing lock on file /Users/omiros.trypatsas/IdeaProjects/play-template/project/target/.sbt-compilation-infos/root-compile/.sbt-idea-lock.[0m
