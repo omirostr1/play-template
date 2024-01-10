@@ -37,3 +37,11 @@ object Book {
 object SaleInfo {
   implicit val formats: OFormat[SaleInfo] = Json.format[SaleInfo]
 }
+
+object VolumeInfo {
+  implicit val formats: OFormat[VolumeInfo] = Json.format[VolumeInfo]
+}
+
+object IndustryIdentifiers {
+  implicit val formats: OFormat[IndustryIdentifiers] = Json.format[IndustryIdentifiers]
+}

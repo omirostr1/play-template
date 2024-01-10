@@ -9,12 +9,12 @@ import javax.inject._
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.libs.json._
 import org.mongodb.scala.result.DeleteResult
-import services.ApplicationService
+import services.LibraryService
 
 import java.awt.print.Book
 
 @Singleton
-class ApplicationController @Inject()(val controllerComponents: ControllerComponents, val dataRepository: DataRepository, val service: ApplicationService)( implicit val ec: ExecutionContext) extends BaseController {
+class ApplicationController @Inject()(val controllerComponents: ControllerComponents, val dataRepository: DataRepository, val service: LibraryService)(implicit val ec: ExecutionContext) extends BaseController {
   def index(): Action[AnyContent] = Action.async { implicit request =>
     dataRepository.index().map {
       case Right(item: Seq[DataModel]) => Ok { // 200 response.
