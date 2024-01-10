@@ -17,7 +17,7 @@ package controllers {
 
   
     // @LINE:2
-    def index(): Call = {
+    def index: Call = {
       
       Call("GET", _prefix)
     }
