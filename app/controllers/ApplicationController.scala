@@ -1,7 +1,6 @@
 package controllers
 
 import com.mongodb.client.result.DeleteResult
-import models.DataModel
 import play.api.mvc._
 import repositories.DataRepository
 
@@ -11,7 +10,7 @@ import play.api.libs.json._
 import org.mongodb.scala.result.DeleteResult
 import services.LibraryService
 
-import java.awt.print.Book
+import models.{Book, DataModel}
 
 @Singleton
 class ApplicationController @Inject()(val controllerComponents: ControllerComponents, val dataRepository: DataRepository, val service: LibraryService)(implicit val ec: ExecutionContext) extends BaseController {
@@ -20,7 +19,7 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
       case Right(item: Seq[DataModel]) => Ok { // 200 response.
         Json.toJson(item)
       }
-      case Left(error) => Status(error)(Json.toJson("Unable to find any books"))
+      case Left(error) => Status(INTERNAL_SERVER_ERROR)(Json.toJson("Unable to find any books"))
     }
   }
 
@@ -63,13 +62,10 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
   }
 
   def getGoogleBook(search: String, term: String): Action[AnyContent] = Action.async { implicit request =>
-    service.getGoogleBook(search = search, term = term).map {
-//      case Right(book: Book) => Ok { // 200 response.
-//        Json.toJson(book)
-//      }
-//      case Left(error) => Future[BadRequest]
-      ???
+    service.getGoogleBook(search = search, term = term).value.map {
+      case Right(book: List[Book]) => Ok(Json.toJson(book.asInstanceOf[List[Book]])) //Hint: This should be the same as before
+      case Left(error) => Status(INTERNAL_SERVER_ERROR)(Json.toJson(s"Unable to read data: $error"))
     }
-    }
+  }
   }
 
