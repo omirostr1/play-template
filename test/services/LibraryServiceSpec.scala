@@ -8,6 +8,7 @@ import org.scalamock.scalatest.MockFactory
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json._
+import play.api.test.Helpers.status
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -18,39 +19,40 @@ class LibraryServiceSpec extends BaseSpec with MockFactory with ScalaFutures wit
   val testService = new LibraryService(mockConnector)
 
   val gameOfThrones: JsValue = Json.obj(
-    "_id" -> "someId",
-    "name" -> "A Game of Thrones",
-    "description" -> "The best book!!!",
-    "numSales" -> 100
+    "id" -> "someId",
+    "volumeInfo" -> Json.obj("title" -> "A Game of Thrones",
+      "description" -> "The best book!!!"),
+    "etag" -> "ciulyRzCGrc"
   )
 
   "getGoogleBook" should {
     val url: String = "testUrl"
 
     "return a book" in {
+
       (mockConnector.get[Book](_: String)(_: OFormat[Book], _: ExecutionContext))
         .expects(url, *, *)
         .returning(EitherT.rightT(List(gameOfThrones.as[Book])))
         .once()
 
       whenReady(testService.getGoogleBook(urlOverride = Some(url), search = "", term = "").value) { result =>
-        result shouldBe List(gameOfThrones.as[Book])
+        result shouldBe Right(List(gameOfThrones.as[Book]))
       }
     }
   }
 
-//  "return an error" in {
-    //    val url: String = "testUrl"
-    //
-    //    (mockConnector.get[Book](_: String)(_: OFormat[APIError], _: ExecutionContext))
-    //      .expects(url, *, *)
-    //      .returning(APIError) // How do we return an error?
-    //      .once()
-    //
-    //    whenReady(testService.getGoogleBook(urlOverride = Some(url), search = "", term = "")) { result =>
-    //      result shouldBe APIError
-    //    }
-    //  }
-//
+  "return an error" in {
+        val url: String = "testUrl"
+
+        (mockConnector.get[Book](_: String)(_: OFormat[Book], _: ExecutionContext))
+          .expects(url, *, *)
+          .returning(EitherT.leftT(APIError.BadAPIResponse(500,"Could not connect"))) // How do we return an error?
+          .once()
+
+        whenReady(testService.getGoogleBook(urlOverride = Some(url), search = "", term = "").value) { result =>
+          result shouldBe Left(APIError.BadAPIResponse(500, "Could not connect"))
+        }
+      }
+
 
 }

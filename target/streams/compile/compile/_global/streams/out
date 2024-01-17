@@ -1,8 +1,2 @@
 [0m[[0m[0mdebug[0m] [0m[0mAcquiring lock on file /Users/omiros.trypatsas/IdeaProjects/play-template/project/target/.sbt-compilation-infos/root-compile/.sbt-idea-lock ...[0m
-[0m[[0m[31merror[0m] [0m[0m/Users/omiros.trypatsas/IdeaProjects/play-template/app/connectors/LibraryConnector.scala:21:18: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : scala.concurrent.Future[scala.util.Either[models.APIError,List[Any]]][0m
-[0m[[0m[31merror[0m] [0m[0m required: scala.concurrent.Future[Either[models.APIError,List[models.Book]]][0m
-[0m[[0m[31merror[0m] [0m[0m        .recover { case _: WSResponse =>[0m
-[0m[[0m[31merror[0m] [0m[0m                 ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
 [0m[[0m[0mdebug[0m] [0m[0mReleasing lock on file /Users/omiros.trypatsas/IdeaProjects/play-template/project/target/.sbt-compilation-infos/root-compile/.sbt-idea-lock.[0m

@@ -5,25 +5,13 @@
 [0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(services.LibraryServiceSpec, sbt.ForkMain$SubclassFingerscan@4ae3c1cd, false, [SuiteSelector])[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mLibraryServiceSpec:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mgetGoogleBook[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m- should return a book *** FAILED ***[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  play.api.libs.json.JsResultException: JsResultException(errors:List((/etag,List(JsonValidationError(List(error.path.missing),ArraySeq()))), (/selfLink,List(JsonValidationError(List(error.path.missing),ArraySeq()))), (/volumeInfo,List(JsonValidationError(List(error.path.missing),ArraySeq()))), (/saleInfo,List(JsonValidationError(List(error.path.missing),ArraySeq()))), (/id,List(JsonValidationError(List(error.path.missing),ArraySeq()))), (/kind,List(JsonValidationError(List(error.path.missing),ArraySeq())))))[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  at play.api.libs.json.JsReadable.$anonfun$as$2(JsReadable.scala:25)[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  at play.api.libs.json.JsError.fold(JsResult.scala:66)[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  at play.api.libs.json.JsReadable.as(JsReadable.scala:24)[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  at play.api.libs.json.JsReadable.as$(JsReadable.scala:23)[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  at play.api.libs.json.JsObject.as(JsValue.scala:126)[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  at services.LibraryServiceSpec.$anonfun$new$2(LibraryServiceSpec.scala:33)[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  at org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  at org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  at org.scalatest.Transformer.apply(Transformer.scala:22)[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  ...[0m[0m
-[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 1 second, 683 milliseconds.[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 1[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should return a book[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- return an error[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 2 events.[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 1 second, 680 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 2[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 1, aborted 0[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 0, failed 1, canceled 0, ignored 0, pending 0[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m*** 1 TEST FAILED ***[0m[0m
-[0m[[0m[31merror[0m] [0m[0mFailed tests:[0m
-[0m[[0m[31merror[0m] [0m[0m	services.LibraryServiceSpec[0m
-[0m[[0m[31merror[0m] [0m[0m(Test / [31mtestOnly[0m) sbt.TestsFailedException: Tests unsuccessful[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 2, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	services.LibraryServiceSpec[0m
