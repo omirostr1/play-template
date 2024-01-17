@@ -63,7 +63,10 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
 
   def getGoogleBook(search: String, term: String): Action[AnyContent] = Action.async { implicit request =>
     service.getGoogleBook(search = search, term = term).value.map {
-      case Right(book: List[Book]) => Ok(Json.toJson(book.asInstanceOf[List[Book]])) //Hint: This should be the same as before
+      case Right(book: List[Book]) => {
+        println(Json.toJson(book.asInstanceOf[List[Book]]))
+        Ok(Json.toJson(book.asInstanceOf[List[Book]]))
+      } //Hint: This should be the same as before
       case Left(error) => Status(INTERNAL_SERVER_ERROR)(Json.toJson(s"Unable to read data: $error"))
     }
   }

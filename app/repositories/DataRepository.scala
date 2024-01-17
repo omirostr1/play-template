@@ -30,21 +30,24 @@ class DataRepository @Inject()(
       case _ => Left(APIError.BadAPIResponse(404, "Books cannot be found"))
     }
 
-  def create(book: DataModel): Future[DataModel] =
+  def create(book: DataModel): Future[Either[APIError.BadAPIResponse, DataModel]] =
     collection
       .insertOne(book) // Parameter book is the document to be inserted into the collection.
       .toFuture()
-      .map(_ => book)
+      .map{
+        case book: DataModel => Right(book)
+        case _ => Left(APIError.BadAPIResponse(404, "Books cannot be found"))
+      }
 
   private def byID(id: String): Bson =
     Filters.and(
       Filters.equal("_id", id)
     )
 
-  def read(id: String): Future[DataModel] =
+  def read(id: String): Future[Either[APIError.BadAPIResponse, DataModel]] =
     collection.find(byID(id)).headOption flatMap { // byID is a query used to filter the collection.
-      case Some(data) =>
-        Future(data)
+      case Some(data) => Right(Future(Some(data)))
+      case _ => Left(APIError.BadAPIResponse(404, "Books cannot be found"))
     }
 
   def update(id: String, book: DataModel): Future[result.UpdateResult] =
