@@ -30,13 +30,13 @@ class DataRepository @Inject()(
       case _ => Left(APIError.BadAPIResponse(404, "Books cannot be found"))
     }
 
-  def create(book: DataModel): Future[Either[APIError.BadAPIResponse, DataModel]] =
+  def create(book: DataModel): Future[Either[String, DataModel]] =
     collection
       .insertOne(book) // Parameter book is the document to be inserted into the collection.
       .toFuture()
       .map{
         case book: DataModel => Right(book)
-        case _ => Left(APIError.BadAPIResponse(404, "Books cannot be found"))
+        case _ => Left("Error: entry cannot be created due to false information")
       }
 
   private def byID(id: String): Bson =
@@ -44,10 +44,10 @@ class DataRepository @Inject()(
       Filters.equal("_id", id)
     )
 
-  def read(id: String): Future[Either[APIError.BadAPIResponse, DataModel]] =
+  def read(id: String): Future[Option[DataModel]] =
     collection.find(byID(id)).headOption flatMap { // byID is a query used to filter the collection.
-      case Some(data) => Right(Future(Some(data)))
-      case _ => Left(APIError.BadAPIResponse(404, "Books cannot be found"))
+      case Some(data) => Future(Some(data))
+      case _ => Future(None)
     }
 
   def update(id: String, book: DataModel): Future[result.UpdateResult] =
@@ -57,11 +57,18 @@ class DataRepository @Inject()(
       options = new ReplaceOptions().upsert(true) //What happens when we set this to false? When true, replaceOne() either inserts the document from the replacement parameter if no document matches the filter, or replaces the document that matches the filter with the replacement document.
     ).toFuture()
 
-  def delete(id: String): Future[result.DeleteResult] = {
+  def delete(id: String): Future[Either[String, result.DeleteResult]] = {
     collection.find(byID(id)).headOption flatMap {
       case Some(data) => collection.deleteOne(
         filter = byID(id) // specifies deletion criteria using query operators, in this case byID.
-      ).toFuture()
+      ).toFuture().map { result =>
+        if (result.wasAcknowledged() && result.getDeletedCount > 0) {
+          Right(result)
+        } else {
+          Left(s"Error: Failed to delete data with id $id")
+        }
+      }
+      case _ => Future(Left("Error: Data entry not found"))
     }
   }
 

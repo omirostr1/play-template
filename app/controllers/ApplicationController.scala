@@ -49,14 +49,16 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
 
   def delete(id: String): Action[AnyContent] = Action.async { implicit request =>
     dataRepository.delete(id).map { result =>
-      if (result.wasAcknowledged()) {
-        Accepted
-      } else {
-        Status(INTERNAL_SERVER_ERROR)(Json.toJson("Unable to delete data"))
+      result match {
+        case Right(deleteResult) if deleteResult.wasAcknowledged() =>
+          Accepted
+        case Right(_) =>
+          Status(INTERNAL_SERVER_ERROR)(Json.toJson("Unable to delete data"))
+        case Left(error) =>
+          Status(INTERNAL_SERVER_ERROR)(Json.toJson(error))
       }
     }.recover {
       case error =>
-        // Handle other types of errors (e.g., network issues, MongoDB server errors).
         Status(INTERNAL_SERVER_ERROR)(Json.toJson(s"Error during delete operation: $error"))
     }
   }
