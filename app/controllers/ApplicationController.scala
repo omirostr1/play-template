@@ -39,7 +39,7 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
       case error => Status(INTERNAL_SERVER_ERROR)(Json.toJson(s"Unable to read data: $error"))
     }
   }
-  def update(id: String) = Action.async(parse.json) { implicit request =>
+  def update(id: String): Action[JsValue] = Action.async(parse.json) { implicit request =>
     request.body.validate[DataModel] match {
       case JsSuccess(dataModel, _) =>
         dataRepository.update(id, dataModel).map(_ => Accepted(Json.toJson(dataModel)))
