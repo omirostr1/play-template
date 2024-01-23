@@ -39,11 +39,29 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
       case error => Status(INTERNAL_SERVER_ERROR)(Json.toJson(s"Unable to read data: $error"))
     }
   }
+
+  def readByAnyField(field: String, term: String) = Action.async { implicit request =>
+    dataRepository.readByAnyField(field, term).map { data =>
+      Ok(Json.toJson(data))
+    }.recover {
+      case _: NoSuchElementException => NotFound(Json.toJson("No data found"))
+      case error => Status(INTERNAL_SERVER_ERROR)(Json.toJson(s"Unable to read data: $error"))
+    }
+  }
+
   def update(id: String): Action[JsValue] = Action.async(parse.json) { implicit request =>
     request.body.validate[DataModel] match {
       case JsSuccess(dataModel, _) =>
         dataRepository.update(id, dataModel).map(_ => Accepted(Json.toJson(dataModel)))
       case JsError(_) => Future(BadRequest)
+    }
+  }
+
+  def updateSpecificField(id: String, field: String, change: String): Action[JsValue] = Action.async(parse.json) { implicit request =>
+    request.body.validate[DataModel] match {
+        case JsSuccess(dataModel, _) =>
+          dataRepository.updateSpecificField(id, field, change).map(_ => Accepted(Json.toJson(dataModel)))
+        case JsError(_) => Future(BadRequest)
     }
   }
 

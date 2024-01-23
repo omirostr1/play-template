@@ -24,8 +24,8 @@ class DataRepository @Inject()(
   replaceIndexes = false
 ) {
 
-  def index(): Future[Either[APIError.BadAPIResponse, Seq[DataModel]]]  =
-    collection.find().toFuture().map{ // this returns all items in the data repository, as no filters as parameters are passed.
+  def index(): Future[Either[APIError.BadAPIResponse, Seq[DataModel]]] =
+    collection.find().toFuture().map { // this returns all items in the data repository, as no filters as parameters are passed.
       case books: Seq[DataModel] => Right(books)
       case _ => Left(APIError.BadAPIResponse(404, "Books cannot be found"))
     }
@@ -34,7 +34,7 @@ class DataRepository @Inject()(
     collection
       .insertOne(book) // Parameter book is the document to be inserted into the collection.
       .toFuture()
-      .map{
+      .map {
         case book: DataModel => Right(book)
         case _ => Left("Error: entry cannot be created due to false information")
       }
@@ -44,8 +44,19 @@ class DataRepository @Inject()(
       Filters.equal("_id", id)
     )
 
+  private def byField(field: String, term: String): Bson =
+    Filters.and(
+      Filters.equal(s"$field", term)
+    )
+
   def read(id: String): Future[Option[DataModel]] =
     collection.find(byID(id)).headOption flatMap { // byID is a query used to filter the collection.
+      case Some(data) => Future(Some(data))
+      case _ => Future(None)
+    }
+
+  def readByAnyField(field: String, term: String): Future[Option[DataModel]] =
+    collection.find(byField(field, term)).headOption flatMap {
       case Some(data) => Future(Some(data))
       case _ => Future(None)
     }
@@ -56,6 +67,21 @@ class DataRepository @Inject()(
       replacement = book, // replacement document.
       options = new ReplaceOptions().upsert(true) //What happens when we set this to false? When true, replaceOne() either inserts the document from the replacement parameter if no document matches the filter, or replaces the document that matches the filter with the replacement document.
     ).toFuture()
+
+  def updateSpecificField(id: String, field: String, change: String): Future[Option[DataModel]] = {
+    collection.find(byID(id)).headOption flatMap {
+      case Some(data) =>
+        val updatedBook = field match {
+          case "_id" => data.copy(_id = change)
+          case "name" => data.copy(name = change.toString)
+          case "description" => data.copy(description = change)
+          case "numSales" => data.copy(numSales = change.toInt)
+          case _ => data
+        }
+        update(id, updatedBook).map(book => Some(updatedBook))
+      case _ => Future(None)
+    }
+  }
 
   def delete(id: String): Future[Either[String, result.DeleteResult]] = {
     collection.find(byID(id)).headOption flatMap {
