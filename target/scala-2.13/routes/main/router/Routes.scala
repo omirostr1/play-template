@@ -50,6 +50,8 @@ class Routes(
     ("""PUT""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """update/""" + "$" + """id<[^/]+>""", """controllers.ApplicationController.update(id:String)"""),
     ("""DELETE""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """delete/""" + "$" + """id<[^/]+>""", """controllers.ApplicationController.delete(id:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/google/""" + "$" + """search<[^/]+>/""" + "$" + """term<[^/]+>""", """controllers.ApplicationController.getGoogleBook(search:String, term:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """readByAnyField/""" + "$" + """field<[^/]+>/""" + "$" + """term<[^/]+>""", """controllers.ApplicationController.readByAnyField(field:String, term:String)"""),
+    ("""PUT""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """updateSpecificField/""" + "$" + """id<[^/]+>/""" + "$" + """field<[^/]+>/""" + "$" + """change<[^/]+>""", """controllers.ApplicationController.updateSpecificField(id:String, field:String, change:String)"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -201,6 +203,42 @@ class Routes(
     )
   )
 
+  // @LINE:25
+  private[this] lazy val controllers_ApplicationController_readByAnyField8_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("readByAnyField/"), DynamicPart("field", """[^/]+""",true), StaticPart("/"), DynamicPart("term", """[^/]+""",true)))
+  )
+  private[this] lazy val controllers_ApplicationController_readByAnyField8_invoker = createInvoker(
+    ApplicationController_2.readByAnyField(fakeValue[String], fakeValue[String]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.ApplicationController",
+      "readByAnyField",
+      Seq(classOf[String], classOf[String]),
+      "GET",
+      this.prefix + """readByAnyField/""" + "$" + """field<[^/]+>/""" + "$" + """term<[^/]+>""",
+      """ App route that references the new controller and method""",
+      Seq()
+    )
+  )
+
+  // @LINE:28
+  private[this] lazy val controllers_ApplicationController_updateSpecificField9_route = Route("PUT",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("updateSpecificField/"), DynamicPart("id", """[^/]+""",true), StaticPart("/"), DynamicPart("field", """[^/]+""",true), StaticPart("/"), DynamicPart("change", """[^/]+""",true)))
+  )
+  private[this] lazy val controllers_ApplicationController_updateSpecificField9_invoker = createInvoker(
+    ApplicationController_2.updateSpecificField(fakeValue[String], fakeValue[String], fakeValue[String]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.ApplicationController",
+      "updateSpecificField",
+      Seq(classOf[String], classOf[String], classOf[String]),
+      "PUT",
+      this.prefix + """updateSpecificField/""" + "$" + """id<[^/]+>/""" + "$" + """field<[^/]+>/""" + "$" + """change<[^/]+>""",
+      """ App route that references the new controller and method""",
+      Seq()
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
@@ -250,6 +288,18 @@ class Routes(
     case controllers_ApplicationController_getGoogleBook7_route(params@_) =>
       call(params.fromPath[String]("search", None), params.fromPath[String]("term", None)) { (search, term) =>
         controllers_ApplicationController_getGoogleBook7_invoker.call(ApplicationController_2.getGoogleBook(search, term))
+      }
+  
+    // @LINE:25
+    case controllers_ApplicationController_readByAnyField8_route(params@_) =>
+      call(params.fromPath[String]("field", None), params.fromPath[String]("term", None)) { (field, term) =>
+        controllers_ApplicationController_readByAnyField8_invoker.call(ApplicationController_2.readByAnyField(field, term))
+      }
+  
+    // @LINE:28
+    case controllers_ApplicationController_updateSpecificField9_route(params@_) =>
+      call(params.fromPath[String]("id", None), params.fromPath[String]("field", None), params.fromPath[String]("change", None)) { (id, field, change) =>
+        controllers_ApplicationController_updateSpecificField9_invoker.call(ApplicationController_2.updateSpecificField(id, field, change))
       }
   }
 }

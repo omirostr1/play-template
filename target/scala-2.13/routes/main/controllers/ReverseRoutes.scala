@@ -64,6 +64,18 @@ package controllers {
       Call("GET", _prefix + { _defaultPrefix } + "library/google/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("search", search)) + "/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("term", term)))
     }
   
+    // @LINE:25
+    def readByAnyField(field:String, term:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "readByAnyField/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("field", field)) + "/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("term", term)))
+    }
+  
+    // @LINE:28
+    def updateSpecificField(id:String, field:String, change:String): Call = {
+      
+      Call("PUT", _prefix + { _defaultPrefix } + "updateSpecificField/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)) + "/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("field", field)) + "/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("change", change)))
+    }
+  
     // @LINE:20
     def delete(id:String): Call = {
       

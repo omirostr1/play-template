@@ -87,6 +87,26 @@ package controllers.javascript {
       """
     )
   
+    // @LINE:25
+    def readByAnyField: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ApplicationController.readByAnyField",
+      """
+        function(field0,term1) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "readByAnyField/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("field", field0)) + "/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("term", term1))})
+        }
+      """
+    )
+  
+    // @LINE:28
+    def updateSpecificField: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ApplicationController.updateSpecificField",
+      """
+        function(id0,field1,change2) {
+          return _wA({method:"PUT", url:"""" + _prefix + { _defaultPrefix } + """" + "updateSpecificField/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0)) + "/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("field", field1)) + "/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("change", change2))})
+        }
+      """
+    )
+  
     // @LINE:20
     def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ApplicationController.delete",
