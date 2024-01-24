@@ -27,17 +27,14 @@ class DataRepository @Inject()(
   def index(): Future[Either[APIError.BadAPIResponse, Seq[DataModel]]] =
     collection.find().toFuture().map { // this returns all items in the data repository, as no filters as parameters are passed.
       case books: Seq[DataModel] => Right(books)
-      case _ => Left(APIError.BadAPIResponse(404, "Books cannot be found"))
+      case _ => Left(APIError.BadAPIResponse(404, "Books cannot be found "))
     }
 
   def create(book: DataModel): Future[Either[String, DataModel]] =
-    collection
-      .insertOne(book) // Parameter book is the document to be inserted into the collection.
-      .toFuture()
-      .map {
-        case book: DataModel => Right(book)
-        case _ => Left("Error: entry cannot be created due to false information")
-      }
+    collection.insertOne(book).toFuture().map {
+      case book: DataModel => Right(book)
+      case _ => Left("Error: entry cannot be created due to false information")
+    } // Parameter book is the document to be inserted into the collection.
 
   private def byID(id: String): Bson =
     Filters.and(
@@ -65,7 +62,7 @@ class DataRepository @Inject()(
     collection.replaceOne(
       filter = byID(id), // selection criteria for the update.
       replacement = book, // replacement document.
-      options = new ReplaceOptions().upsert(true) //What happens when we set this to false? When true, replaceOne() either inserts the document from the replacement parameter if no document matches the filter, or replaces the document that matches the filter with the replacement document.
+      options = new ReplaceOptions().upsert(true) // What happens when we set this to false? When true, replaceOne() either inserts the document from the replacement parameter if no document matches the filter, or replaces the document that matches the filter with the replacement document.
     ).toFuture()
 
   def updateSpecificField(id: String, field: String, change: String): Future[Option[DataModel]] = {
@@ -73,13 +70,13 @@ class DataRepository @Inject()(
       case Some(data) =>
         val updatedBook = field match {
           case "_id" => data.copy(_id = change)
-          case "name" => data.copy(name = change.toString)
+          case "name" => data.copy(name = change)
           case "description" => data.copy(description = change)
           case "numSales" => data.copy(numSales = change.toInt)
           case _ => data
         }
         update(id, updatedBook).map(book => Some(updatedBook))
-      case _ => Future(None)
+      case _ => Future.successful(None)
     }
   }
 
