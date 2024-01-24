@@ -15,7 +15,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
 
   val TestApplicationController = new ApplicationController(
     component,
-    repository,
+    repoService,
     service
   )
 
