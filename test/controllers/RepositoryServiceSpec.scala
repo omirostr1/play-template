@@ -1,5 +1,7 @@
 package controllers
 
-class RepositoryServiceSpec {
+import baseSpec.BaseSpec
+
+class RepositoryServiceSpec extends BaseSpec{
 
 }
