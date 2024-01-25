@@ -21,41 +21,43 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
   def create(): Action[JsValue] = Action.async(parse.json) { implicit request =>
     request.body.validate[DataModel] match {
       case JsSuccess(dataModel, _) =>
-        repositoryService.create(dataModel).map(_ => Created)
+        repositoryService.create(dataModel).map {
+          case Right(book: DataModel) => Created(Json.toJson(book))
+          case Left(error) => Status(INTERNAL_SERVER_ERROR)(Json.toJson("Error: entry cannot be created due to duplicate id entered"))
+        }
       case JsError(_) => Future(BadRequest)
     }
   }
 
   def read(id: String): Action[AnyContent] = Action.async { implicit request =>
-    repositoryService.read(id).map { data =>
-      Ok(Json.toJson(data))
-    }.recover {
-      case _: NoSuchElementException => NotFound(Json.toJson("No data found"))
-      case error => Status(INTERNAL_SERVER_ERROR)(Json.toJson(s"Unable to read data: $error"))
+    repositoryService.read(id).map {
+      case Right(data) => Ok(Json.toJson(data))
+      case Left(_) => NotFound(Json.toJson("No data found"))
     }
   }
 
   def readByAnyField(field: String, term: String): Action[AnyContent] = Action.async { implicit request =>
-    repositoryService.readByAnyField(field, term).map { data =>
-      Ok(Json.toJson(data))
-    }.recover {
-      case _: NoSuchElementException => NotFound(Json.toJson("No data found"))
-      case error => Status(INTERNAL_SERVER_ERROR)(Json.toJson(s"Unable to read data: $error"))
+    repositoryService.readByAnyField(field, term).map {
+      case Right(data) => Ok(Json.toJson(data))
+      case Left(_) => NotFound(Json.toJson("No data found"))
     }
   }
 
   def update(id: String): Action[JsValue] = Action.async(parse.json) { implicit request =>
     request.body.validate[DataModel] match {
       case JsSuccess(dataModel, _) =>
-        repositoryService.update(id, dataModel).map(_ => Accepted(Json.toJson(dataModel)))
+        repositoryService.update(id, dataModel).map {
+          case Right(book) => Accepted(Json.toJson(dataModel))
+          case Left(_) => NotFound(Json.toJson("No data found"))
+        }
       case JsError(_) => Future(BadRequest)
     }
   }
 
   def updateSpecificField(id: String, field: String, change: String): Action[JsValue] = Action.async(parse.json) { implicit request =>
     repositoryService.updateSpecificField(id, field, change).map {
-            case data => Ok(Json.toJson(data))
-            case error => BadRequest(Json.toJson(error))
+            case Right(data) => Ok(Json.toJson(data))
+            case Left(_) => BadRequest(Json.toJson("No data found"))
           }
     }
 
@@ -67,7 +69,7 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
         case Right(_) =>
           Status(INTERNAL_SERVER_ERROR)(Json.toJson("Unable to delete data"))
         case Left(error) =>
-          Status(INTERNAL_SERVER_ERROR)(Json.toJson(error))
+          NotFound(Json.toJson("No data found"))
       }
     }.recover {
       case error =>

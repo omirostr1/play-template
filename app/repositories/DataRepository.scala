@@ -30,11 +30,12 @@ class DataRepository @Inject()(
       case _ => Left(APIError.BadAPIResponse(404, "Books cannot be found "))
     }
 
-  def create(book: DataModel): Future[Either[String, DataModel]] =
-    collection.insertOne(book).toFuture().map {
-      case book: DataModel => Right(book)
-      case _ => Left("Error: entry cannot be created due to false information")
-    } // Parameter book is the document to be inserted into the collection.
+  def create(book: DataModel): Future[Option[DataModel]] = {
+    collection.find(byID(book._id)).headOption().flatMap {
+      case Some(data: DataModel) => Future(None)
+      case _ => collection.insertOne(book).toFuture().map(_ => Some(book))
+    }
+  }
 
   private def byID(id: String): Bson =
     Filters.and(
@@ -46,27 +47,31 @@ class DataRepository @Inject()(
       Filters.equal(s"$field", term)
     )
 
-  def read(id: String): Future[Option[DataModel]] =
-    collection.find(byID(id)).headOption flatMap { // byID is a query used to filter the collection.
-      case Some(data) => Future(Some(data))
-      case _ => Future(None)
+  def read(id: String): Future[Either[APIError.BadAPIResponse, DataModel]] =
+    collection.find(byID(id)).headOption.map { // byID is a query used to filter the collection.
+      case Some(data: DataModel) => Right(data)
+      case _ | null => Left(APIError.BadAPIResponse(404, "Book cannot be found "))
     }
 
-  def readByAnyField(field: String, term: String): Future[Option[DataModel]] =
-    collection.find(byField(field, term)).headOption flatMap {
-      case Some(data) => Future(Some(data))
-      case _ => Future(None)
+  def readByAnyField(field: String, term: String): Future[Either[APIError.BadAPIResponse, DataModel]] =
+    collection.find(byField(field, term)).headOption.map {
+      case Some(data: DataModel) => Right(data)
+      case _ | null => Left(APIError.BadAPIResponse(404, "Book cannot be found "))
     }
 
-  def update(id: String, book: DataModel): Future[result.UpdateResult] =
+  def update(id: String, book: DataModel): Future[Either[APIError.BadAPIResponse, result.UpdateResult]] = {
     collection.replaceOne(
       filter = byID(id), // selection criteria for the update.
       replacement = book, // replacement document.
       options = new ReplaceOptions().upsert(true) // What happens when we set this to false? When true, replaceOne() either inserts the document from the replacement parameter if no document matches the filter, or replaces the document that matches the filter with the replacement document.
-    ).toFuture()
+    ).toFuture().map(result => Right(result))
+      .recover {
+        case _ => Left(APIError.BadAPIResponse(404, "Book cannot be found "))
+    }
+  }
 
-  def updateSpecificField(id: String, field: String, change: String): Future[Option[DataModel]] = {
-    collection.find(byID(id)).headOption flatMap {
+  def updateSpecificField(id: String, field: String, change: String): Future[Either[APIError.BadAPIResponse, DataModel]] = {
+    collection.find(byID(id)).headOption.flatMap {
       case Some(data) =>
         val updatedBook = field match {
           case "_id" => data.copy(_id = change)
@@ -75,8 +80,8 @@ class DataRepository @Inject()(
           case "numSales" => data.copy(numSales = change.toInt)
           case _ => data
         }
-        update(id, updatedBook).map(book => Some(updatedBook))
-      case _ => Future.successful(None)
+        update(id, updatedBook).map(book => Right(updatedBook))
+      case _ => Future(Left(APIError.BadAPIResponse(404, "Book cannot be found ")))
     }
   }
 

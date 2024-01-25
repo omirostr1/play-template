@@ -17,32 +17,42 @@ class RepositoryService @Inject()(val dataRepository: DataRepository)(implicit e
       case _ => Left(APIError.BadAPIResponse(404, "Books cannot be found"))
     }
 
-  def create(book: DataModel): Future[Either[String, DataModel]] =
+  def create(book: DataModel): Future[Either[APIError.BadAPIResponse, DataModel]] =
     dataRepository.create(book).map {
-      case Right(book: DataModel) => Right(book)
-      case Left(_) => Left("Error: entry cannot be created due to false information")
+      case None => Left(APIError.BadAPIResponse(500, "Error: entry cannot be created due to duplicate id"))
+      case _ => Right(book)
     }
 
-  def read(id: String): Future[Option[DataModel]] =
-    dataRepository.read(id) flatMap { // byID is a query used to filter the collection.
-      case Some(data) => Future(Some(data))
-      case _ => Future(None)
+  def read(id: String): Future[Either[APIError.BadAPIResponse, DataModel]] =
+    dataRepository.read(id).map {
+      case Right(data: DataModel) => Right(data)
+      case Left(_) => Left(APIError.BadAPIResponse(404, "Error: entry cannot be created, id doesn't exist"))
     }
 
-  def readByAnyField(field: String, term: String): Future[Option[DataModel]] =
-    dataRepository.readByAnyField(field, term) flatMap {
-      case Some(data) => Future(Some(data))
-      case _ => Future(None)
+  def readByAnyField(field: String, term: String): Future[Either[APIError.BadAPIResponse, DataModel]] =
+    dataRepository.readByAnyField(field, term).map {
+      case Right(data: DataModel) => Right(data)
+      case Left(_) => Left(APIError.BadAPIResponse(404, "Error: entry cannot be created, id doesn't exist"))
     }
-  def update(id: String, book: DataModel): Future[result.UpdateResult] =
-    dataRepository.update(id, book)
 
-  def updateSpecificField(id: String, field: String, change: String): Future[Option[DataModel]] = {
-    dataRepository.updateSpecificField(id, field, change)
+  def update(id: String, book: DataModel): Future[Either[APIError.BadAPIResponse, result.UpdateResult]] =
+    dataRepository.update(id, book).map {
+      case Right(result) => Right(result)
+      case Left(_) => Left(APIError.BadAPIResponse(404, "Error: entry cannot be created, id doesn't exist"))
+    }
+
+  def updateSpecificField(id: String, field: String, change: String): Future[Either[APIError.BadAPIResponse, DataModel]] = {
+    dataRepository.updateSpecificField(id, field, change).map {
+      case Right(result) => Right(result)
+      case Left(_) => Left(APIError.BadAPIResponse(404, "Error: entry cannot be created, id doesn't exist"))
+    }
   }
 
-  def delete(id: String): Future[Either[String, result.DeleteResult]] = {
-    dataRepository.delete(id)
+  def delete(id: String): Future[Either[APIError.BadAPIResponse, result.DeleteResult]] = {
+    dataRepository.delete(id).map {
+      case Right(result) => Right(result)
+      case Left(_) => Left(APIError.BadAPIResponse(404, "Error: entry cannot be created, id doesn't exist"))
+    }
   }
 
 
