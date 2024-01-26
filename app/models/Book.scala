@@ -5,7 +5,7 @@ import play.api.libs.json._
 case class Book(
                //kind: String,
                id: String,
-               etag: String,
+               etag: Option[String],
                //selfLink: String,
                //saleInfo: SaleInfo,
                volumeInfo: VolumeInfo

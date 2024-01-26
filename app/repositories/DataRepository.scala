@@ -1,5 +1,6 @@
 package repositories
 
+import com.google.inject.ImplementedBy
 import models.{APIError, DataModel}
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Filters.empty
@@ -10,6 +11,19 @@ import uk.gov.hmrc.mongo.play.json.PlayMongoRepository
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
+
+@ImplementedBy(classOf[DataRepository])
+trait DataRepositoryTrait {
+
+  def index(): Future[Either[String, Seq[DataModel]]]
+  def create(book: DataModel): Future[Either[APIError.BadAPIResponse, DataModel]]
+  def read(id: String): Future[Either[APIError.BadAPIResponse, DataModel]]
+  def readByAnyField(field: String, term: String): Future[Either[APIError.BadAPIResponse, DataModel]]
+  def update(id: String, book: DataModel): Future[Either[APIError.BadAPIResponse, result.UpdateResult]]
+  def updateSpecificField(id: String, field: String, change: String): Future[Either[APIError.BadAPIResponse, DataModel]]
+  def delete(id: String): Future[Either[APIError.BadAPIResponse, result.DeleteResult]]
+
+}
 
 @Singleton
 class DataRepository @Inject()(
@@ -22,12 +36,12 @@ class DataRepository @Inject()(
     Indexes.ascending("_id")
   )),
   replaceIndexes = false
-) {
+) with DataRepositoryTrait {
 
-  def index(): Future[Either[APIError.BadAPIResponse, Seq[DataModel]]] =
+  def index(): Future[Either[String, Seq[DataModel]]] =
     collection.find().toFuture().map { // this returns all items in the data repository, as no filters as parameters are passed.
       case books: Seq[DataModel] => Right(books)
-      case _ => Left(APIError.BadAPIResponse(404, "Books cannot be found "))
+      case _ => Left("None")
     }
 
   def create(book: DataModel): Future[Option[DataModel]] = {
