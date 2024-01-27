@@ -16,12 +16,12 @@ import scala.concurrent.{ExecutionContext, Future}
 trait DataRepositoryTrait {
 
   def index(): Future[Either[String, Seq[DataModel]]]
-  def create(book: DataModel): Future[Either[APIError.BadAPIResponse, DataModel]]
+  def create(book: DataModel): Future[Option[DataModel]]
   def read(id: String): Future[Either[APIError.BadAPIResponse, DataModel]]
   def readByAnyField(field: String, term: String): Future[Either[APIError.BadAPIResponse, DataModel]]
   def update(id: String, book: DataModel): Future[Either[APIError.BadAPIResponse, result.UpdateResult]]
   def updateSpecificField(id: String, field: String, change: String): Future[Either[APIError.BadAPIResponse, DataModel]]
-  def delete(id: String): Future[Either[APIError.BadAPIResponse, result.DeleteResult]]
+  def delete(id: String): Future[Either[String, result.DeleteResult]]
 
 }
 
