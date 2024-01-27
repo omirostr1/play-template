@@ -8,7 +8,8 @@ case class DataModel(
                     _id: String,
                     name: String,
                     description: String,
-                    numSales: Int
+                    numSales: Int,
+                    isbn: String
                     )
 
 object DataModel {

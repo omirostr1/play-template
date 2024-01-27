@@ -84,5 +84,9 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
       case Left(error) => Status(INTERNAL_SERVER_ERROR)(Json.toJson(s"Unable to read data: $error"))
     }
   }
+
+//  def storeGoogleBook(search: String, term: String): Action[AnyContent] = Action.async { implicit request =>
+//    getGoogleBook(search, term)
+//  }
   }
 

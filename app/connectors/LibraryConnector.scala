@@ -1,7 +1,7 @@
 package connectors
 
 import cats.data.EitherT
-import models.APIError
+import models.{APIError, Book}
 import play.api.libs.json.OFormat
 import play.api.libs.ws.{WSClient, WSResponse}
 
@@ -16,9 +16,9 @@ class LibraryConnector @Inject()(ws: WSClient) {
       response
         .map {
           result =>
-            Right(result.json.as[List[Response]])
+            Right(result.json.as[List[Book]])
         }
-        .recover { case _: WSResponse =>
+        .recover  { case _: WSResponse =>
           Left(APIError.BadAPIResponse(500, "Could not connect"))
         }
     }
