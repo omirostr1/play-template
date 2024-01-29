@@ -46,6 +46,12 @@ package controllers {
     }
 
   
+    // @LINE:30
+    def storeGoogleBook(search:String, term:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "library/store/google/book/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("search", search)) + "/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("term", term)))
+    }
+  
     // @LINE:14
     def read(id:String): Call = {
       

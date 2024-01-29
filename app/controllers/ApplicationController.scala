@@ -85,8 +85,33 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
     }
   }
 
-//  def storeGoogleBook(search: String, term: String): Action[AnyContent] = Action.async { implicit request =>
-//    getGoogleBook(search, term)
-//  }
+  def convertToDataModel(book: Book): DataModel = {
+    println("apana")
+    DataModel(
+      book.id,
+      book.volumeInfo.title,
+      book.volumeInfo.description.getOrElse("Empty description."),
+      10,
+      book.volumeInfo.industryIdentifiers.head.identifier
+    )
+  }
+
+  def storeGoogleBook(search: String, term: String): Action[JsValue] = Action.async(parse.json) { implicit request =>
+    println("omg")
+    service.getGoogleBook(search = search, term = term).value.flatMap {
+      case Right(book: List[Book]) =>
+        println("hiiiiii")
+        book.map { book =>
+        repositoryService.create(convertToDataModel(book))}.head.map{
+          case Right(book: DataModel) =>
+            println("hey")
+            Status(CREATED)(Json.toJson(book))
+          case Left(error) => Status(INTERNAL_SERVER_ERROR)(Json.toJson("Error: entry cannot be created due to duplicate id entered"))
+        }
+      case Left(error) =>
+        println("ohh")
+        Future.successful(BadRequest)
+    }
+  }
   }
 

@@ -24,13 +24,13 @@ case class VolumeInfo(
                      //authors: List[String],
                      //publishedDate: String,
                      description: Option[String],
-                     //industryIdentifiers: List[IndustryIdentifiers]
+                     industryIdentifiers: List[IndustryIdentifiers]
                      )
 
-//case class IndustryIdentifiers(
-//                              `type`: String,
-//                              identifier: String
-//                              )
+case class IndustryIdentifiers(
+                              `type`: String,
+                              identifier: String
+                              )
 
 object Book {
   implicit val formats: OFormat[Book] = Json.format[Book]
@@ -44,6 +44,6 @@ object VolumeInfo {
   implicit val formats: OFormat[VolumeInfo] = Json.format[VolumeInfo]
 }
 
-//object IndustryIdentifiers {
-//  implicit val formats: OFormat[IndustryIdentifiers] = Json.format[IndustryIdentifiers]
-//}
+object IndustryIdentifiers {
+  implicit val formats: OFormat[IndustryIdentifiers] = Json.format[IndustryIdentifiers]
+}
