@@ -57,6 +57,16 @@ package controllers.javascript {
     }
 
   
+    // @LINE:30
+    def storeGoogleBook: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ApplicationController.storeGoogleBook",
+      """
+        function(search0,term1) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "library/store/google/book/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("search", search0)) + "/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("term", term1))})
+        }
+      """
+    )
+  
     // @LINE:14
     def read: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ApplicationController.read",

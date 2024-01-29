@@ -23,6 +23,12 @@ class RepositoryService @Inject()(val dataRepositoryTrait: DataRepositoryTrait)(
       case _ => Right(book)
     }
 
+//  def createGoogleBook(book: DataModel): Future[Either[APIError.BadAPIResponse, DataModel]] =
+//    dataRepositoryTrait.create(book).map {
+//      case None => Left(APIError.BadAPIResponse(500, "Error: entry cannot be created due to duplicate id"))
+//      case _ => Right(book)
+//    }
+
   def read(id: String): Future[Either[APIError.BadAPIResponse, DataModel]] =
     dataRepositoryTrait.read(id).map {
       case Right(data: DataModel) => Right(data)

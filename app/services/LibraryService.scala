@@ -2,7 +2,7 @@ package services
 
 import cats.data.EitherT
 import connectors.LibraryConnector
-import models.{APIError, Book}
+import models.{APIError, Book, DataModel}
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}

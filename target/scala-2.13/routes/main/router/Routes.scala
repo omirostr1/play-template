@@ -52,6 +52,7 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/google/""" + "$" + """search<[^/]+>/""" + "$" + """term<[^/]+>""", """controllers.ApplicationController.getGoogleBook(search:String, term:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """readByAnyField/""" + "$" + """field<[^/]+>/""" + "$" + """term<[^/]+>""", """controllers.ApplicationController.readByAnyField(field:String, term:String)"""),
     ("""PUT""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """updateSpecificField/""" + "$" + """id<[^/]+>/""" + "$" + """field<[^/]+>/""" + "$" + """change<[^/]+>""", """controllers.ApplicationController.updateSpecificField(id:String, field:String, change:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/store/google/book/""" + "$" + """search<[^/]+>/""" + "$" + """term<[^/]+>""", """controllers.ApplicationController.storeGoogleBook(search:String, term:String)"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -239,6 +240,24 @@ class Routes(
     )
   )
 
+  // @LINE:30
+  private[this] lazy val controllers_ApplicationController_storeGoogleBook10_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("library/store/google/book/"), DynamicPart("search", """[^/]+""",true), StaticPart("/"), DynamicPart("term", """[^/]+""",true)))
+  )
+  private[this] lazy val controllers_ApplicationController_storeGoogleBook10_invoker = createInvoker(
+    ApplicationController_2.storeGoogleBook(fakeValue[String], fakeValue[String]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.ApplicationController",
+      "storeGoogleBook",
+      Seq(classOf[String], classOf[String]),
+      "GET",
+      this.prefix + """library/store/google/book/""" + "$" + """search<[^/]+>/""" + "$" + """term<[^/]+>""",
+      """""",
+      Seq()
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
@@ -300,6 +319,12 @@ class Routes(
     case controllers_ApplicationController_updateSpecificField9_route(params@_) =>
       call(params.fromPath[String]("id", None), params.fromPath[String]("field", None), params.fromPath[String]("change", None)) { (id, field, change) =>
         controllers_ApplicationController_updateSpecificField9_invoker.call(ApplicationController_2.updateSpecificField(id, field, change))
+      }
+  
+    // @LINE:30
+    case controllers_ApplicationController_storeGoogleBook10_route(params@_) =>
+      call(params.fromPath[String]("search", None), params.fromPath[String]("term", None)) { (search, term) =>
+        controllers_ApplicationController_storeGoogleBook10_invoker.call(ApplicationController_2.storeGoogleBook(search, term))
       }
   }
 }
