@@ -19,24 +19,27 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
   )
 
   private val dataModel: DataModel = DataModel(
-    _id =  "abcd",
+    _id =  "1",
     name = "test name",
     description = "test description",
-    numSales = 100
+    numSales = 100,
+    isbn = "9693706099"
   )
 
   private val dataModelWithSameId: DataModel = DataModel(
-    _id = "abcd",
+    _id = "1",
     name ="test name again",
     description = "test description too",
-    numSales = 150
+    numSales = 150,
+    isbn = "9693706039"
   )
 
   private val dataModelWithDifferentId: DataModel = DataModel(
-    _id = "abc",
+    _id = "3",
     name = "another test name",
     description = "different test description",
-    numSales = 94
+    numSales = 94,
+    isbn = "9693700099"
   )
 
   "ApplicationController .index" should {
@@ -93,10 +96,10 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
       beforeEach()
       val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
-      //status(createdResult) shouldBe Status.CREATED
+      status(createdResult) shouldBe Status.CREATED
       //Hint: You could use status(createdResult) shouldBe Status.CREATED to check this has worked again
 
-      val readResult: Future[Result] = TestApplicationController.read("abcd")(FakeRequest())
+      val readResult: Future[Result] = TestApplicationController.read("1")(FakeRequest())
 
       status(readResult) shouldBe Status.OK
       contentAsJson(readResult).as[JsValue] shouldBe Json.toJson(dataModel)
@@ -215,7 +218,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
       val createdResult: Future[Result] = TestApplicationController.create()(request)
       status(createdResult) shouldBe Status.CREATED
 
-      val result = TestApplicationController.delete("abcd")(FakeRequest())
+      val result = TestApplicationController.delete("1")(FakeRequest())
 
       status(result) shouldBe Status.ACCEPTED
 
