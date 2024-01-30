@@ -3,10 +3,10 @@ package models
 import play.api.libs.json._
 
 case class Book(
-               //kind: String,
+//             kind: String,
                id: String,
-               etag: Option[String],
-               //selfLink: String,
+//             etag: Option[String],
+//             selfLink: String,
                //saleInfo: SaleInfo,
                volumeInfo: VolumeInfo
                )
@@ -20,8 +20,8 @@ case class Book(
 
 case class VolumeInfo(
                      title: String,
-                     subtitle: Option[String],
-                     //authors: List[String],
+//                   subtitle: Option[String],
+//                   authors: List[String],
                      //publishedDate: String,
                      description: Option[String],
                      industryIdentifiers: List[IndustryIdentifiers]

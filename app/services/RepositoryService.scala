@@ -2,7 +2,7 @@ package services
 
 import models.{APIError, DataModel}
 import org.mongodb.scala.result
-import repositories.{DataRepository, DataRepositoryTrait}
+import repositories.DataRepositoryTrait
 
 import javax.inject._
 import scala.concurrent.{ExecutionContext, Future}
@@ -22,12 +22,6 @@ class RepositoryService @Inject()(val dataRepositoryTrait: DataRepositoryTrait)(
       case None => Left(APIError.BadAPIResponse(500, "Error: entry cannot be created due to duplicate id"))
       case _ => Right(book)
     }
-
-//  def createGoogleBook(book: DataModel): Future[Either[APIError.BadAPIResponse, DataModel]] =
-//    dataRepositoryTrait.create(book).map {
-//      case None => Left(APIError.BadAPIResponse(500, "Error: entry cannot be created due to duplicate id"))
-//      case _ => Right(book)
-//    }
 
   def read(id: String): Future[Either[APIError.BadAPIResponse, DataModel]] =
     dataRepositoryTrait.read(id).map {

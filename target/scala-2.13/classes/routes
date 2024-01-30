@@ -28,3 +28,5 @@ GET     /readByAnyField/:field/:term     controllers.ApplicationController.readB
 PUT     /updateSpecificField/:id/:field/:change     controllers.ApplicationController.updateSpecificField(id: String, field: String, change: String)
 
 GET     /library/store/google/book/:search/:term      controllers.ApplicationController.storeGoogleBook(search: String, term: String)
+
+#DELETE /deleteALL      repositories.DataRepository.deleteAll
