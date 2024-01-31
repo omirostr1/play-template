@@ -1,0 +1,14 @@
+body { background-color: #FFB700; }
+P { text-align: center }
+H1 { text-align: center }
+H3 { text-align: center }
+body {
+    margin-top: 200px;
+    font-family: 'Lexend Deca', sans-serif;
+    color: #0017FF;
+}
+.table {
+    margin: auto;
+}
+
+

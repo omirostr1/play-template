@@ -41,7 +41,7 @@ Seq[Any](format.raw/*2.1*/("""
     <p class="lead mb-5">This project is deployed via Heroku.</p>
 
     <h3>API Documentation</h3>
-    <div class="justify-content-center">
+    <div class="justify-content-center" style="text-align: center">
       <table class="table">
         <thead>
         <tr>
@@ -122,8 +122,8 @@ Seq[Any](format.raw/*2.1*/("""
               /*
                   -- GENERATED --
                   SOURCE: app/views/index.scala.html
-                  HASH: 9305f5981198abb52d9944018bcd995c2f7d9ad4
-                  MATRIX: 722->1|818->4|845->6|876->29|915->31|943->33|3088->2148
+                  HASH: 092e33180d5ad1cd4c3cd94534d035e55028b8de
+                  MATRIX: 722->1|818->4|845->6|876->29|915->31|943->33|3115->2175
                   LINES: 21->1|26->2|27->3|27->3|27->3|29->5|107->83
                   -- GENERATED --
               */

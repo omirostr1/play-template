@@ -40,7 +40,7 @@ class RepositoryServiceSpec extends BaseSpec with MockFactory with ScalaFutures 
     "numSales" -> 2424,
   )
 
-  private val dataModel: DataModel = DataModel(
+  val dataModel: DataModel = DataModel(
     _id = "1",
     name = "test name",
     description = "test description",
@@ -48,7 +48,7 @@ class RepositoryServiceSpec extends BaseSpec with MockFactory with ScalaFutures 
     isbn = "9693706099"
   )
 
-  private val dataModel2: DataModel = DataModel(
+  val dataModel2: DataModel = DataModel(
     _id = "3",
     name = "another test name",
     description = "different test description",
