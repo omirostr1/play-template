@@ -1,0 +1,29 @@
+@import models.DataModel
+@import helper._
+
+@(dataModelForm: Form[DataModel])(implicit request: RequestHeader, messages: Messages)
+
+@main("Add a New Book"){
+    <div>
+    @helper.form(action = routes.ApplicationController.addBookForm()) {
+        @helper.CSRF.formField
+        @helper.inputText(dataModelForm("_id"))
+        @helper.inputText(dataModelForm("name"))
+        @helper.inputText(dataModelForm("description"))
+        @helper.inputText(dataModelForm("numSales"))
+        @helper.inputText(dataModelForm("isbn"))
+        <input class="submitButton" type="submit" value="Submit">
+        }
+    </div>
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>

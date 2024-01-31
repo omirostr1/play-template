@@ -28,7 +28,8 @@ object main extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlF
       {
 
 
-Seq[Any](format.raw/*8.1*/("""
+Seq[Any](format.raw/*7.32*/(""" """),format.raw/*7.149*/("""
+
 """),format.raw/*9.1*/("""<!DOCTYPE html>
 <html lang="en">
     <head>
@@ -36,13 +37,14 @@ Seq[Any](format.raw/*8.1*/("""
         """),format.raw/*13.9*/("""<title>"""),_display_(/*13.17*/title),format.raw/*13.22*/("""</title>
         <link rel="stylesheet" media="screen" href=""""),_display_(/*14.54*/routes/*14.60*/.Assets.versioned("stylesheets/main.css")),format.raw/*14.101*/("""">
         <link rel="shortcut icon" type="image/png" href=""""),_display_(/*15.59*/routes/*15.65*/.Assets.versioned("images/favicon.png")),format.raw/*15.104*/("""">
+        <link rel="stylesheet" type="text/css" media="screen" href=""""),_display_(/*16.70*/routes/*16.76*/.Assets.versioned("/stylesheets/main.css")),format.raw/*16.118*/("""">
 
     </head>
     <body>
-        """),format.raw/*20.32*/("""
-        """),_display_(/*21.10*/content),format.raw/*21.17*/("""
+        """),format.raw/*21.32*/("""
+        """),_display_(/*22.10*/content),format.raw/*22.17*/("""
 
-      """),format.raw/*23.7*/("""<script src=""""),_display_(/*23.21*/routes/*23.27*/.Assets.versioned("javascripts/main.js")),format.raw/*23.67*/("""" type="text/javascript"></script>
+      """),format.raw/*24.7*/("""<script src=""""),_display_(/*24.21*/routes/*24.27*/.Assets.versioned("javascripts/main.js")),format.raw/*24.67*/("""" type="text/javascript"></script>
     </body>
 </html>
 """))
@@ -62,9 +64,9 @@ Seq[Any](format.raw/*8.1*/("""
               /*
                   -- GENERATED --
                   SOURCE: app/views/main.scala.html
-                  HASH: 52352176f1a784d96e62964e439264b508b87d6f
-                  MATRIX: 987->260|1111->291|1138->292|1218->397|1254->406|1289->414|1315->419|1404->481|1419->487|1482->528|1570->589|1585->595|1646->634|1709->759|1746->769|1774->776|1809->784|1850->798|1865->804|1926->844
-                  LINES: 26->7|31->8|32->9|35->12|36->13|36->13|36->13|37->14|37->14|37->14|38->15|38->15|38->15|42->20|43->21|43->21|45->23|45->23|45->23|45->23
+                  HASH: ec54f3c3999a383d925178f0cf6b1e01031b4eb4
+                  MATRIX: 987->260|1112->290|1141->407|1169->409|1249->514|1285->523|1320->531|1346->536|1435->598|1450->604|1513->645|1601->706|1616->712|1677->751|1776->823|1791->829|1855->871|1918->996|1955->1006|1983->1013|2018->1021|2059->1035|2074->1041|2135->1081
+                  LINES: 26->7|31->7|31->7|33->9|36->12|37->13|37->13|37->13|38->14|38->14|38->14|39->15|39->15|39->15|40->16|40->16|40->16|44->21|45->22|45->22|47->24|47->24|47->24|47->24
                   -- GENERATED --
               */
           

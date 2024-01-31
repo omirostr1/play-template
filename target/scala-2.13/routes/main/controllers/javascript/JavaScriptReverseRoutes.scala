@@ -29,27 +29,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:5
-  class ReverseAssets(_prefix: => String) {
-
-    def _defaultPrefix: String = {
-      if (_prefix.endsWith("/")) "" else "/"
-    }
-
-  
-    // @LINE:5
-    def versioned: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.Assets.versioned",
-      """
-        function(file1) {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "assets/" + (""" + implicitly[play.api.mvc.PathBindable[Asset]].javascriptUnbind + """)("file", file1)})
-        }
-      """
-    )
-  
-  }
-
-  // @LINE:8
+  // @LINE:4
   class ReverseApplicationController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -57,7 +37,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:30
+    // @LINE:32
     def storeGoogleBook: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ApplicationController.storeGoogleBook",
       """
@@ -67,7 +47,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:14
+    // @LINE:16
     def read: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ApplicationController.read",
       """
@@ -77,7 +57,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:11
+    // @LINE:13
     def create: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ApplicationController.create",
       """
@@ -87,7 +67,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:22
+    // @LINE:24
     def getGoogleBook: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ApplicationController.getGoogleBook",
       """
@@ -97,7 +77,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:25
+    // @LINE:27
     def readByAnyField: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ApplicationController.readByAnyField",
       """
@@ -107,7 +87,17 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:28
+    // @LINE:36
+    def addBook: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ApplicationController.addBook",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "addnewbook/form"})
+        }
+      """
+    )
+  
+    // @LINE:30
     def updateSpecificField: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ApplicationController.updateSpecificField",
       """
@@ -117,7 +107,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:20
+    // @LINE:22
     def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ApplicationController.delete",
       """
@@ -127,7 +117,17 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:17
+    // @LINE:4
+    def example: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ApplicationController.example",
+      """
+        function(id0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "example/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+        }
+      """
+    )
+  
+    // @LINE:19
     def update: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ApplicationController.update",
       """
@@ -137,12 +137,32 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:8
+    // @LINE:10
     def index: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ApplicationController.index",
       """
         function() {
           return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api"})
+        }
+      """
+    )
+  
+  }
+
+  // @LINE:7
+  class ReverseAssets(_prefix: => String) {
+
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:7
+    def versioned: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.Assets.versioned",
+      """
+        function(file1) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "assets/" + (""" + implicitly[play.api.mvc.PathBindable[Asset]].javascriptUnbind + """)("file", file1)})
         }
       """
     )

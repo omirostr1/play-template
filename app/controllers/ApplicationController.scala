@@ -1,16 +1,35 @@
 package controllers
 
+import models.DataModel.dataModelForm
 import models.{Book, DataModel}
+import play.api.i18n.Messages
 import play.api.libs.json._
 import play.api.mvc._
 import services.{LibraryService, RepositoryService}
 
 import javax.inject._
 import scala.concurrent.{ExecutionContext, Future}
+import views.html.example
 
 
 @Singleton
-class ApplicationController @Inject()(val controllerComponents: ControllerComponents, val repositoryService: RepositoryService, val service: LibraryService)(implicit val ec: ExecutionContext) extends BaseController {
+class ApplicationController @Inject()(val controllerComponents: ControllerComponents, val repositoryService: RepositoryService, val service: LibraryService)(implicit val ec: ExecutionContext) extends BaseController with play.api.i18n.I18nSupport {
+
+  val dataModel: DataModel = DataModel(
+    _id = "1",
+    name = "test name",
+    description = "test description",
+    numSales = 100,
+    isbn = "9693706099"
+  )
+
+  def example(id: String): Action[AnyContent] = Action.async { implicit request =>
+    repositoryService.read(id).map {
+      case Right(dataModel: DataModel) => Ok(views.html.example(dataModel))
+      case Left(_) => Status(INTERNAL_SERVER_ERROR)(Json.toJson(s"Unable to find any books because no books are stored in the database"))
+    }
+  }
+
   def index(): Action[AnyContent] = Action.async { implicit request =>
     repositoryService.index().map {
       case Right(books: Seq[DataModel]) => Ok(Json.toJson(books))
@@ -108,5 +127,12 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
         Future.successful(BadRequest)
     }
   }
+
+  def addBook(): Action[AnyContent] = Action { implicit request =>
+    Ok(views.html.addNewBook(dataModelForm))
+  }
+
+  def addBookForm() = ???
+
   }
 
