@@ -73,6 +73,12 @@ package controllers {
       Call("PUT", _prefix + { _defaultPrefix } + "updateSpecificField/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)) + "/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("field", field)) + "/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("change", change)))
     }
   
+    // @LINE:38
+    def addBookForm(): Call = {
+      
+      Call("POST", _prefix + { _defaultPrefix } + "addnewbook/form")
+    }
+  
     // @LINE:22
     def delete(id:String): Call = {
       

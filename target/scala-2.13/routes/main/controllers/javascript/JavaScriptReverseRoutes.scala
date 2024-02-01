@@ -107,6 +107,16 @@ package controllers.javascript {
       """
     )
   
+    // @LINE:38
+    def addBookForm: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ApplicationController.addBookForm",
+      """
+        function() {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "addnewbook/form"})
+        }
+      """
+    )
+  
     // @LINE:22
     def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ApplicationController.delete",

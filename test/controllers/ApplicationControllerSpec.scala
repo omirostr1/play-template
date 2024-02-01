@@ -5,6 +5,7 @@ import models.DataModel
 import play.api.http.Status
 import play.api.libs.json._
 import play.api.mvc.Result
+import play.api.test.CSRFTokenHelper.CSRFRequest
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
@@ -236,6 +237,38 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
       status(createdResult) shouldBe Status.CREATED
 
       val result = TestApplicationController.delete("12")(FakeRequest())
+
+      status(result) shouldBe Status.NOT_FOUND
+
+      afterEach()
+    }
+  }
+
+  "ApplicationController .addBook() error case" should {
+
+    "store book entered through a form in database" in {
+      beforeEach()
+
+      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModelWithDifferentId)).withCSRFToken.withFormUrlEncodedBody("nameOf YourParameter" -> "name", ...)
+      val createdResult: Future[Result] = TestApplicationController.create()(request)
+      status(createdResult) shouldBe Status.CREATED
+
+      status(result) shouldBe Status.NOT_FOUND
+
+      afterEach()
+    }
+  }
+
+  "ApplicationController .addBookForm() error case" should {
+
+    "fail to store book entered through a form in database" in {
+      beforeEach()
+
+      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val createdResult: Future[Result] = TestApplicationController.create()(request)
+      status(createdResult) shouldBe Status.CREATED
+
+      val newResult: Future[Result] = TestApplicationController.create()(request)
 
       status(result) shouldBe Status.NOT_FOUND
 
