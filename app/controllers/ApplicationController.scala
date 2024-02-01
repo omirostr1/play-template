@@ -5,6 +5,7 @@ import models.{Book, DataModel}
 import play.api.i18n.Messages
 import play.api.libs.json._
 import play.api.mvc._
+import play.filters.csrf.CSRF
 import services.{LibraryService, RepositoryService}
 
 import javax.inject._
@@ -75,10 +76,10 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
 
   def updateSpecificField(id: String, field: String, change: String): Action[JsValue] = Action.async(parse.json) { implicit request =>
     repositoryService.updateSpecificField(id, field, change).map {
-            case Right(data) => Ok(Json.toJson(data))
-            case Left(_) => BadRequest(Json.toJson("No data found"))
-          }
+      case Right(data) => Ok(Json.toJson(data))
+      case Left(_) => BadRequest(Json.toJson("No data found"))
     }
+  }
 
   def delete(id: String): Action[AnyContent] = Action.async { implicit request =>
     repositoryService.delete(id).map {
@@ -99,7 +100,7 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
       case Right(book: List[Book]) =>
         println(Json.toJson(book))
         Ok(Json.toJson(book))
-       //Hint: This should be the same as before
+      //Hint: This should be the same as before
       case Left(error) => Status(INTERNAL_SERVER_ERROR)(Json.toJson(s"Unable to read data: $error"))
     }
   }
@@ -118,7 +119,8 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
     service.getGoogleBook(search = search, term = term).value.flatMap {
       case Right(book: List[Book]) =>
         book.map { book =>
-        repositoryService.create(convertToDataModel(book))}.head.map{
+          repositoryService.create(convertToDataModel(book))
+        }.head.map {
           case Right(book: DataModel) =>
             Status(CREATED)(Json.toJson(book))
           case Left(error) => Status(INTERNAL_SERVER_ERROR)(Json.toJson("Error: entry cannot be created due to duplicate id entered"))
@@ -132,7 +134,23 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
     Ok(views.html.addNewBook(dataModelForm))
   }
 
-  def addBookForm() = ???
-
+  def accessToken(implicit request: Request[_]) = {
+    CSRF.getToken
   }
+
+  def addBookForm(): Action[AnyContent] = Action.async { implicit request =>
+    accessToken //call the accessToken method
+    dataModelForm.bindFromRequest().fold( //from the implicit request we want to bind this to the form in our companion object
+      formWithErrors => {
+        Future(Status(INTERNAL_SERVER_ERROR)(Json.toJson("Error: entry cannot be created due to duplicate id entered")))
+      },
+      formData => {
+        repositoryService.create(formData).map{
+          case Right(formData: DataModel) => Ok(views.html.addNewBook(dataModelForm.fill(formData)))
+          case Left(_) => Status(INTERNAL_SERVER_ERROR)(Json.toJson("Error: entry cannot be created due to duplicate id entered"))
+        }
+      }
+    )
+  }
+}
 

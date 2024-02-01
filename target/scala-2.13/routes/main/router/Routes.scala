@@ -55,6 +55,7 @@ class Routes(
     ("""PUT""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """updateSpecificField/""" + "$" + """id<[^/]+>/""" + "$" + """field<[^/]+>/""" + "$" + """change<[^/]+>""", """controllers.ApplicationController.updateSpecificField(id:String, field:String, change:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/store/google/book/""" + "$" + """search<[^/]+>/""" + "$" + """term<[^/]+>""", """controllers.ApplicationController.storeGoogleBook(search:String, term:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """addnewbook/form""", """controllers.ApplicationController.addBook()"""),
+    ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """addnewbook/form""", """controllers.ApplicationController.addBookForm()"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -296,6 +297,24 @@ class Routes(
     )
   )
 
+  // @LINE:38
+  private[this] lazy val controllers_ApplicationController_addBookForm13_route = Route("POST",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("addnewbook/form")))
+  )
+  private[this] lazy val controllers_ApplicationController_addBookForm13_invoker = createInvoker(
+    ApplicationController_1.addBookForm(),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.ApplicationController",
+      "addBookForm",
+      Nil,
+      "POST",
+      this.prefix + """addnewbook/form""",
+      """""",
+      Seq()
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
@@ -375,6 +394,12 @@ class Routes(
     case controllers_ApplicationController_addBook12_route(params@_) =>
       call { 
         controllers_ApplicationController_addBook12_invoker.call(ApplicationController_1.addBook())
+      }
+  
+    // @LINE:38
+    case controllers_ApplicationController_addBookForm13_route(params@_) =>
+      call { 
+        controllers_ApplicationController_addBookForm13_invoker.call(ApplicationController_1.addBookForm())
       }
   }
 }
