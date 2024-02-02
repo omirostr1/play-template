@@ -4,7 +4,7 @@
 @(dataModelForm: Form[DataModel])(implicit request: RequestHeader, messages: Messages)
 
 @main("Add a New Book"){
-    <div>
+    <div class="bookForm">
     @helper.form(action = routes.ApplicationController.addBookForm()) {
         @helper.CSRF.formField
         @helper.inputText(dataModelForm("_id"))
