@@ -142,7 +142,7 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
     accessToken //call the accessToken method
     dataModelForm.bindFromRequest().fold( //from the implicit request we want to bind this to the form in our companion object
       formWithErrors => {
-        Future(Status(INTERNAL_SERVER_ERROR)(Json.toJson("Error: entry cannot be created due to duplicate id entered")))
+        Future(Status(INTERNAL_SERVER_ERROR)(Json.toJson("Error: cannot store an empty form")))
       },
       formData => {
         repositoryService.create(formData).map{

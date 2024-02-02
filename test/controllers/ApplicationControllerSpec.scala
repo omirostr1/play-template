@@ -4,7 +4,7 @@ import baseSpec.BaseSpecWithApplication
 import models.DataModel
 import play.api.http.Status
 import play.api.libs.json._
-import play.api.mvc.Result
+import play.api.mvc.{AnyContentAsFormUrlEncoded, Result}
 import play.api.test.CSRFTokenHelper.CSRFRequest
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -244,16 +244,15 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     }
   }
 
-  "ApplicationController .addBook() error case" should {
+  "ApplicationController .addBookForm() error case" should {
 
     "store book entered through a form in database" in {
       beforeEach()
 
-      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModelWithDifferentId)).withCSRFToken.withFormUrlEncodedBody("nameOf YourParameter" -> "name", ...)
-      val createdResult: Future[Result] = TestApplicationController.create()(request)
-      status(createdResult) shouldBe Status.CREATED
+      val request: FakeRequest[AnyContentAsFormUrlEncoded] = buildPost("/addnewbook/form").withFormUrlEncodedBody("_id" -> "3", "name" -> "Omiros", "description" -> "Trypatsas", "numSales" -> "1", "isbn" -> "3598585")
+      val createdResult: Future[Result] = TestApplicationController.addBookForm()(request)
 
-      status(result) shouldBe Status.NOT_FOUND
+      status(createdResult) shouldBe Status.OK
 
       afterEach()
     }
@@ -261,16 +260,43 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
 
   "ApplicationController .addBookForm() error case" should {
 
-    "fail to store book entered through a form in database" in {
+    "fail to store book entered through a form in database due to duplication" in {
       beforeEach()
 
-      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
-      val createdResult: Future[Result] = TestApplicationController.create()(request)
-      status(createdResult) shouldBe Status.CREATED
+      val request: FakeRequest[AnyContentAsFormUrlEncoded] = buildPost("/addnewbook/form").withFormUrlEncodedBody("_id" -> "3", "name" -> "Omiros", "description" -> "Trypatsas", "numSales" -> "1", "isbn" -> "3598585")
+      val createdResult: Future[Result] = TestApplicationController.addBookForm()(request)
 
-      val newResult: Future[Result] = TestApplicationController.create()(request)
+      val newResult: Future[Result] = TestApplicationController.addBookForm()(request)
 
-      status(result) shouldBe Status.NOT_FOUND
+      status(newResult) shouldBe Status.INTERNAL_SERVER_ERROR
+
+      afterEach()
+    }
+  }
+
+  "ApplicationController .addBookForm() error case" should {
+
+    "fail to store book entered through a form in database due to empty form" in {
+      beforeEach()
+
+      val request: FakeRequest[AnyContentAsFormUrlEncoded] = buildPost("/addnewbook/form").withFormUrlEncodedBody("_id" -> "", "name" -> "", "description" -> "", "numSales" -> "", "isbn" -> "")
+      val createdResult: Future[Result] = TestApplicationController.addBookForm()(request)
+
+      status(createdResult) shouldBe Status.INTERNAL_SERVER_ERROR
+
+      afterEach()
+    }
+  }
+
+  "ApplicationController .addBookForm() error case" should {
+
+    "fail to store book entered through a form in database due to text inserted instead of number" in {
+      beforeEach()
+
+      val request: FakeRequest[AnyContentAsFormUrlEncoded] = buildPost("/addnewbook/form").withFormUrlEncodedBody("_id" -> "3", "name" -> "Omiros", "description" -> "Trypatsas", "numSales" -> "wrong", "isbn" -> "3598585")
+      val createdResult: Future[Result] = TestApplicationController.addBookForm()(request)
+
+      status(createdResult) shouldBe Status.INTERNAL_SERVER_ERROR
 
       afterEach()
     }
