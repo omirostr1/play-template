@@ -5,7 +5,6 @@ import models.DataModel
 import play.api.http.Status
 import play.api.libs.json._
 import play.api.mvc.{AnyContentAsFormUrlEncoded, Result}
-import play.api.test.CSRFTokenHelper.CSRFRequest
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 

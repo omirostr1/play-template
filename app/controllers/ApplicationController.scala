@@ -2,7 +2,6 @@ package controllers
 
 import models.DataModel.dataModelForm
 import models.{Book, DataModel}
-import play.api.i18n.Messages
 import play.api.libs.json._
 import play.api.mvc._
 import play.filters.csrf.CSRF
@@ -10,7 +9,6 @@ import services.{LibraryService, RepositoryService}
 
 import javax.inject._
 import scala.concurrent.{ExecutionContext, Future}
-import views.html.example
 
 
 @Singleton
