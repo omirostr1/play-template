@@ -6,33 +6,37 @@ GET     /example/:id                  controllers.ApplicationController.example(
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
-# App route that references the new controller and method
+# App route for index method
 GET     /api     controllers.ApplicationController.index
 
-# App route that references the new controller and method
+# App route for create method
 POST     /create   controllers.ApplicationController.create()
 
-# App route that references the new controller and method
+# App route for read by ID method
 GET     /read/:id     controllers.ApplicationController.read(id: String)
 
-# App route that references the new controller and method
+# App route for update by ID method
 PUT     /update/:id     controllers.ApplicationController.update(id: String)
 
-# App route that references the new controller and method
+# App route for delete method by ID
 DELETE     /delete/:id      controllers.ApplicationController.delete(id: String)
 
+# App route for getGoogleBook method to search for a book in Google Book API
 GET     /library/google/:search/:term      controllers.ApplicationController.getGoogleBook(search: String, term: String)
 
-# App route that references the new controller and method
+# App route for readByAnyField by field and term of choice
 GET     /readByAnyField/:field/:term     controllers.ApplicationController.readByAnyField(field: String, term: String)
 
-# App route that references the new controller and method
+# App route for updateSpecificField method by field and term of choice, providing ID for validate its existance.
 PUT     /updateSpecificField/:id/:field/:change     controllers.ApplicationController.updateSpecificField(id: String, field: String, change: String)
 
+# App route for storeGoogleBook
 GET     /library/store/google/book/:search/:term      controllers.ApplicationController.storeGoogleBook(search: String, term: String)
 
 #DELETE /deleteALL      repositories.DataRepository.deleteAll
 
+# App GET route for laoading the form in the browser
 GET     /addnewbook/form                 controllers.ApplicationController.addBook()
 
+# App route for storing the book entered via the form in the db
 POST     /addnewbook/form                controllers.ApplicationController.addBookForm()
