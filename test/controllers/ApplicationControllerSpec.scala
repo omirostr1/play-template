@@ -44,7 +44,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
 
   "ApplicationController .index" should {
 
-    "return TODO" in {
+    "return all instances stored in the database" in {
       beforeEach()
       val result = TestApplicationController.index()(FakeRequest())
       status(result) shouldBe Status.OK

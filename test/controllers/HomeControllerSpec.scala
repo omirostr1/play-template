@@ -5,6 +5,7 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.mvc.ControllerComponents
 import play.api.test.Helpers._
 import play.api.test._
+import org.scalatest.matchers.must.Matchers.convertToAnyMustWrapper
 
 /**
  * Add your spec here.
