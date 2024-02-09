@@ -56,7 +56,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
 
     "create a book in the database" in {
       beforeEach()
-      val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost("/create").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
 
       status(createdResult) shouldBe Status.CREATED
@@ -68,7 +68,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
 
     "return a BadRequest due to false data entered" in {
       beforeEach()
-      val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](Json.toJson("abc"))
+      val request: FakeRequest[JsValue] = buildPost("/create").withBody[JsValue](Json.toJson("abc"))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
 
       status(createdResult) shouldBe Status.BAD_REQUEST
@@ -80,7 +80,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
 
     "return an Internal Server Error due to duplicate id found" in {
       beforeEach()
-      val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost("/create").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
       status(createdResult) shouldBe Status.CREATED
 
@@ -94,7 +94,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
 
     "find a book in the database by id" in {
       beforeEach()
-      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost("/create").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
       status(createdResult) shouldBe Status.CREATED
       //Hint: You could use status(createdResult) shouldBe Status.CREATED to check this has worked again
@@ -111,7 +111,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
 
     "return a Not Found Error" in {
       beforeEach()
-      val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost("/create").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
       status(createdResult) shouldBe Status.CREATED
       //Hint: You could use status(createdResult) shouldBe Status.CREATED to check this has worked again
@@ -127,7 +127,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
 
     "return successfully an entry" in {
       beforeEach()
-      val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost("/create").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
       status(createdResult) shouldBe Status.CREATED
       //Hint: You could use status(createdResult) shouldBe Status.CREATED to check this has worked again
@@ -143,7 +143,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
 
     "return a Not Found Error" in {
       beforeEach()
-      val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost("/create").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
       status(createdResult) shouldBe Status.CREATED
       //Hint: You could use status(createdResult) shouldBe Status.CREATED to check this has worked again
@@ -161,11 +161,11 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     "return a successfully updated entry" in {
       beforeEach()
 
-      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost("/create").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
       status(createdResult) shouldBe Status.CREATED
 
-      val updateRequest: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModelWithSameId))
+      val updateRequest: FakeRequest[JsValue] = buildPost(s"/update/${dataModel._id}").withBody[JsValue](Json.toJson(dataModelWithSameId))
       val result = TestApplicationController.update(dataModel._id)(updateRequest)
 
       status(result) shouldBe Status.ACCEPTED
@@ -178,11 +178,11 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     "return a BadRequest due to missing data inserted" in {
       beforeEach()
 
-      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost("/create").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
       status(createdResult) shouldBe Status.CREATED
 
-      val updateRequest: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson("abc"))
+      val updateRequest: FakeRequest[JsValue] = buildPost(s"/update/${dataModel._id}").withBody[JsValue](Json.toJson("abc"))
       val result = TestApplicationController.update(id = "abd")(updateRequest)
 
       status(result) shouldBe Status.BAD_REQUEST
@@ -196,11 +196,11 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     "return a Not Found error due to wrong data" in {
       beforeEach()
 
-      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost("/create").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
       status(createdResult) shouldBe Status.CREATED
 
-      val updateRequest: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModelWithDifferentId))
+      val updateRequest: FakeRequest[JsValue] = buildPost(s"/update/${dataModel._id}").withBody[JsValue](Json.toJson(dataModelWithDifferentId))
       val result = TestApplicationController.update(id = "abd")(updateRequest)
 
       status(result) shouldBe Status.NOT_FOUND
@@ -214,7 +214,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     "return successfully deleted data entry" in {
       beforeEach()
 
-      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost("/create").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
       status(createdResult) shouldBe Status.CREATED
 
@@ -231,7 +231,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication{
     "return a Not Found Error due to absence of such id from database" in {
       beforeEach()
 
-      val request: FakeRequest[JsValue] = buildPost(s"/api/${dataModel._id}").withBody[JsValue](Json.toJson(dataModel))
+      val request: FakeRequest[JsValue] = buildPost("/create").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
       status(createdResult) shouldBe Status.CREATED
 

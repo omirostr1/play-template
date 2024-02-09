@@ -3,7 +3,7 @@ package services
 import baseSpec.BaseSpec
 import cats.data.EitherT
 import connectors.LibraryConnector
-import models.{APIError, Book}
+import models.{APIError, Book, DataModel}
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
@@ -11,7 +11,7 @@ import play.api.libs.json._
 
 import scala.concurrent.ExecutionContext
 
-class LibraryServiceSpec extends BaseSpec with MockFactory with ScalaFutures with GuiceOneAppPerSuite{
+class LibraryServiceSpec extends BaseSpec with MockFactory with ScalaFutures with GuiceOneAppPerSuite {
 
   val mockConnector = mock[LibraryConnector]
   implicit val executionContext: ExecutionContext = app.injector.instanceOf[ExecutionContext]
@@ -19,13 +19,14 @@ class LibraryServiceSpec extends BaseSpec with MockFactory with ScalaFutures wit
 
   val gameOfThrones: JsValue = Json.obj(
     "id" -> "someId",
-    "volumeInfo" -> Json.obj("title" -> "A Game of Thrones",
-      "description" -> "The best book!!!"),
-    "etag" -> "ciulyRzCGrc"
+    "name" -> "Omiros",
+    "description" -> "Trypatsas",
+    "numSales" -> 1,
+    "isbn" -> "423957485"
   )
 
   "getGoogleBook" should {
-    val url: String = "testUrl"
+    val url: String = "https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor"
 
     "return a book" in {
 
@@ -40,18 +41,19 @@ class LibraryServiceSpec extends BaseSpec with MockFactory with ScalaFutures wit
     }
   }
 
-  "return an error" in {
-        val url: String = "testUrl"
+  "getGoogleBook" should {
+    val url: String = "testUrl"
 
-        (mockConnector.get[Book](_: String)(_: OFormat[Book], _: ExecutionContext))
-          .expects(url, *, *)
-          .returning(EitherT.leftT(APIError.BadAPIResponse(500,"Could not connect"))) // How do we return an error?
-          .once()
+    "return an error" in {
 
-        whenReady(testService.getGoogleBook(urlOverride = Some(url), search = "", term = "").value) { result =>
-          result shouldBe Left(APIError.BadAPIResponse(500, "Could not connect"))
-        }
+      (mockConnector.get[Book](_: String)(_: OFormat[Book], _: ExecutionContext))
+        .expects(url, *, *)
+        .returning(EitherT.leftT(APIError.BadAPIResponse(500, "Could not connect"))) // How do we return an error?
+        .once()
+
+      whenReady(testService.getGoogleBook(urlOverride = Some(url), search = "", term = "").value) { result =>
+        result shouldBe Left(APIError.BadAPIResponse(500, "Could not connect"))
       }
-
-
+    }
+  }
 }
