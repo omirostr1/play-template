@@ -14,14 +14,6 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class ApplicationController @Inject()(val controllerComponents: ControllerComponents, val repositoryService: RepositoryService, val service: LibraryService)(implicit val ec: ExecutionContext) extends BaseController with play.api.i18n.I18nSupport {
 
-  val dataModel: DataModel = DataModel(
-    _id = "1",
-    name = "test name",
-    description = "test description",
-    numSales = 100,
-    isbn = "9693706099"
-  )
-
   def example(id: String): Action[AnyContent] = Action.async { implicit request =>
     repositoryService.read(id).map {
       case Right(dataModel: DataModel) => Ok(views.html.example(dataModel))
@@ -121,9 +113,9 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
         }.head.map {
           case Right(book: DataModel) =>
             Status(CREATED)(Json.toJson(book))
-          case Left(error) => Status(INTERNAL_SERVER_ERROR)(Json.toJson("Error: entry cannot be created due to duplicate id entered"))
+          case Left(error) => Status(error.upstreamStatus)(Json.toJson(error.reason))
         }
-      case Left(error) =>
+      case Left(_) =>
         Future.successful(BadRequest)
     }
   }
@@ -144,7 +136,7 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
       },
       formData => {
         repositoryService.create(formData).map{
-          case Right(formData: DataModel) => Ok(views.html.addNewBook(dataModelForm.fill(formData)))
+          case Right(validatedFormData: DataModel) => Ok(views.html.addNewBook(dataModelForm.fill(validatedFormData)))
           case Left(_) => Status(INTERNAL_SERVER_ERROR)(Json.toJson("Error: entry cannot be created due to duplicate id entered"))
         }
       }
