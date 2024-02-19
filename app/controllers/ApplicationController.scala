@@ -17,14 +17,14 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
   def example(id: String): Action[AnyContent] = Action.async { implicit request =>
     repositoryService.read(id).map {
       case Right(dataModel: DataModel) => Ok(views.html.example(dataModel))
-      case Left(_) => Status(INTERNAL_SERVER_ERROR)(Json.toJson(s"Unable to find any books because no books are stored in the database"))
+      case Left(error) => Status(error.upstreamStatus)(Json.toJson(error.upstreamMessage))
     }
   }
 
   def index(): Action[AnyContent] = Action.async { implicit request =>
     repositoryService.index().map {
       case Right(books: Seq[DataModel]) => Ok(Json.toJson(books))
-      case Left(_) => Status(INTERNAL_SERVER_ERROR)(Json.toJson(s"Unable to find any books because no books are stored in the database"))
+      case Left(error) => Status(error.upstreamStatus)(Json.toJson(error.upstreamMessage))
     }
   }
 
@@ -33,7 +33,7 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
       case JsSuccess(dataModel, _) =>
         repositoryService.create(dataModel).map {
           case Right(book: DataModel) => Created(Json.toJson(book))
-          case Left(_) => Status(INTERNAL_SERVER_ERROR)(Json.toJson("Error: entry cannot be created due to duplicate id entered"))
+          case Left(error) => Status(error.upstreamStatus)(Json.toJson(error.upstreamMessage))
         }
       case JsError(_) => Future(BadRequest)
     }
@@ -42,14 +42,14 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
   def read(id: String): Action[AnyContent] = Action.async { implicit request =>
     repositoryService.read(id).map {
       case Right(data) => Ok(Json.toJson(data))
-      case Left(_) => NotFound(Json.toJson("No data found"))
+      case Left(error) => Status(error.upstreamStatus)(Json.toJson(error.upstreamMessage))
     }
   }
 
   def readByAnyField(field: String, term: String): Action[AnyContent] = Action.async { implicit request =>
     repositoryService.readByAnyField(field, term).map {
       case Right(data) => Ok(Json.toJson(data))
-      case Left(_) => NotFound(Json.toJson("No data found"))
+      case Left(error) => Status(error.upstreamStatus)(Json.toJson(error.upstreamMessage))
     }
   }
 
@@ -58,7 +58,7 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
       case JsSuccess(dataModel, _) =>
         repositoryService.update(id, dataModel).map {
           case Right(book) => Accepted(Json.toJson(dataModel))
-          case Left(_) => NotFound(Json.toJson("No data found"))
+          case Left(error) => Status(error.upstreamStatus)(Json.toJson(error.upstreamMessage))
         }
       case JsError(_) => Future(BadRequest)
     }
@@ -67,7 +67,7 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
   def updateSpecificField(id: String, field: String, change: String): Action[JsValue] = Action.async(parse.json) { implicit request =>
     repositoryService.updateSpecificField(id, field, change).map {
       case Right(data) => Ok(Json.toJson(data))
-      case Left(_) => BadRequest(Json.toJson("No data found"))
+      case Left(error) => Status(error.upstreamStatus)(Json.toJson(error.upstreamMessage))
     }
   }
 
@@ -78,7 +78,7 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
       case Right(_) =>
         Status(INTERNAL_SERVER_ERROR)(Json.toJson("Unable to delete data"))
       case Left(error) =>
-        NotFound(Json.toJson("No data found"))
+        Status(error.upstreamStatus)(Json.toJson(error.upstreamMessage))
     }.recover {
       case error =>
         Status(INTERNAL_SERVER_ERROR)(Json.toJson(s"Error during delete operation: $error"))
@@ -137,7 +137,7 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
       formData => {
         repositoryService.create(formData).map{
           case Right(validatedFormData: DataModel) => Ok(views.html.addNewBook(dataModelForm.fill(validatedFormData)))
-          case Left(_) => Status(INTERNAL_SERVER_ERROR)(Json.toJson("Error: entry cannot be created due to duplicate id entered"))
+          case Left(error) => Status(error.upstreamStatus)(Json.toJson(error.upstreamMessage))
         }
       }
     )

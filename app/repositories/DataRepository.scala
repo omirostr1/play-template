@@ -26,9 +26,7 @@ trait DataRepositoryTrait {
 }
 
 @Singleton
-class DataRepository @Inject()(
-                                mongoComponent: MongoComponent
-                              )(implicit ec: ExecutionContext) extends PlayMongoRepository[DataModel](
+class DataRepository @Inject()(mongoComponent: MongoComponent)(implicit ec: ExecutionContext) extends PlayMongoRepository[DataModel](
   collectionName = "dataModels", // is the name of the collection, can set this to whatever you like
   mongoComponent = mongoComponent,
   domainFormat = DataModel.formats,
@@ -62,13 +60,13 @@ class DataRepository @Inject()(
     )
 
   def read(id: String): Future[Either[APIError.BadAPIResponse, DataModel]] =
-    collection.find(byID(id)).headOption.map { // byID is a query used to filter the collection.
+    collection.find(byID(id)).headOption().map { // byID is a query used to filter the collection.
       case Some(data: DataModel) => Right(data)
       case _ | null => Left(APIError.BadAPIResponse(404, "Book cannot be found "))
     }
 
   def readByAnyField(field: String, term: String): Future[Either[APIError.BadAPIResponse, DataModel]] =
-    collection.find(byField(field, term)).headOption.map {
+    collection.find(byField(field, term)).headOption().map {
       case Some(data: DataModel) => Right(data)
       case _ | null => Left(APIError.BadAPIResponse(404, "Book cannot be found "))
     }
@@ -85,13 +83,13 @@ class DataRepository @Inject()(
   }
 
   def updateSpecificField(id: String, field: String, change: String): Future[Either[APIError.BadAPIResponse, DataModel]] = {
-    collection.find(byID(id)).headOption.flatMap {
+    collection.find(byID(id)).headOption().flatMap {
       case Some(data) =>
         val updatedBook = field match {
           case "_id" => data.copy(_id = change)
           case "name" => data.copy(name = change)
           case "description" => data.copy(description = change)
-          case "numSales" => data.copy(numSales = change.toInt)
+          case "pageCount" => data.copy(pageCount = change.toInt)
           case _ => data
         }
         update(id, updatedBook).map(book => Right(updatedBook))
@@ -100,7 +98,7 @@ class DataRepository @Inject()(
   }
 
   def delete(id: String): Future[Either[String, result.DeleteResult]] = {
-    collection.find(byID(id)).headOption flatMap {
+    collection.find(byID(id)).headOption() flatMap {
       case Some(data) => collection.deleteOne(
         filter = byID(id) // specifies deletion criteria using query operators, in this case byID.
       ).toFuture().map { result =>

@@ -31,14 +31,14 @@ class RepositoryServiceSpec extends BaseSpec with MockFactory with ScalaFutures 
     "_id" -> "1",
     "name" -> "Game of Thrones",
     "description" -> "Best book ever",
-    "numSales" -> 32,
+    "pageCount" -> 32,
     "isbn" -> "9693706099"
   )
   private val bookNo2: JsValue = Json.obj(
     "id" -> "2",
     "name" -> "Harry Potter",
     "description" -> "Wizards and stuff",
-    "numSales" -> 2424,
+    "pageCount" -> 2424,
     "isbn" -> "9693700099"
   )
 
@@ -46,7 +46,7 @@ class RepositoryServiceSpec extends BaseSpec with MockFactory with ScalaFutures 
     _id = "1",
     name = "test name",
     description = "test description",
-    numSales = 100,
+    pageCount = 100,
     isbn = "9693706099"
   )
 
@@ -54,7 +54,7 @@ class RepositoryServiceSpec extends BaseSpec with MockFactory with ScalaFutures 
     _id = "3",
     name = "another test name",
     description = "different test description",
-    numSales = 94,
+    pageCount = 94,
     isbn = "9693700099"
   )
 

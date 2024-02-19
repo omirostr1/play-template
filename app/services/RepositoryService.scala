@@ -3,6 +3,8 @@ package services
 import models.{APIError, DataModel}
 import org.mongodb.scala.result
 import repositories.DataRepositoryTrait
+import com.mongodb.client.result.DeleteResult
+import play.api.mvc.Request
 
 import javax.inject._
 import scala.concurrent.{ExecutionContext, Future}
