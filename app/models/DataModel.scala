@@ -8,7 +8,7 @@ case class DataModel(
                     _id: String,
                     name: String,
                     description: String,
-                    numSales: Int,
+                    pageCount: Int,
                     isbn: String
                     )
 
@@ -21,7 +21,7 @@ object DataModel {
       "_id" -> text,
       "name" -> text,
       "description" -> text,
-      "numSales" -> number,
+      "pageCount" -> number,
       "isbn" -> text
     )(DataModel.apply)(DataModel.unapply)
   )
